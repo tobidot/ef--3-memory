@@ -2,24 +2,47 @@ import * as React from "react"
 import { Menu } from "semantic-ui-react"
 import { Shared } from "../../shared/Shared";
 import { ApplicationWindowItem as ApplicationWindowItem } from "../data/ApplicationTabItem";
+import { ApplicationMenuState } from "../data/GameMenuState";
+import { GameScreen } from "./GameScreen";
+import { MainMenu } from "./MainMenu";
 
 interface Props<T_MENU_STATE> {
     startState: T_MENU_STATE;
-    windowItems: Array<ApplicationWindowItem<T_MENU_STATE>>;
 }
 
 interface State<T_MENU_STATE> {
     activeItem: T_MENU_STATE;
+    windowItems: Array<ApplicationWindowItem<T_MENU_STATE>>;
 }
 
-export class Application<T_MENU_STATE extends number> extends React.Component<Props<T_MENU_STATE>, State<T_MENU_STATE>> {
+type T_MENU_STATE = ApplicationMenuState;
+
+export class Application extends React.Component<Props<T_MENU_STATE>, State<T_MENU_STATE>> {
     public shared: Shared = Shared.get_instance();
     public state: State<T_MENU_STATE> = {
         activeItem: this.props.startState,
+        windowItems: []
+    }
+
+    componentDidMount() {
+        this.setState({
+            windowItems: [
+                {
+                    state: ApplicationMenuState.MAIN,
+                    tab: <div>Menu</div>,
+                    content: <MainMenu shared={this.shared} onStart={this.handleStartGame} />,
+                },
+                {
+                    state: ApplicationMenuState.GAME,
+                    tab: <div>Game</div>,
+                    content: <GameScreen container={this.shared.game_screen_container} />,
+                },
+            ]
+        });
     }
 
     render() {
-        const tabs = this.props.windowItems.map((item) => {
+        const tabs = this.state.windowItems.map((item) => {
             return this.renderTab(item.state, item.tab);
         });
         return (
@@ -33,7 +56,7 @@ export class Application<T_MENU_STATE extends number> extends React.Component<Pr
     }
 
     renderContent() {
-        const activeContent = this.props.windowItems.filter((window) => window.state === this.state.activeItem);
+        const activeContent = this.state.windowItems.filter((window) => window.state === this.state.activeItem);
         if (activeContent.length === 0) return null;
         return activeContent[0].content;
     }
@@ -52,6 +75,12 @@ export class Application<T_MENU_STATE extends number> extends React.Component<Pr
     handleItemClick = (event, target) => {
         this.setState({
             activeItem: target.state
+        });
+    }
+
+    handleStartGame = (): void => {
+        this.setState({
+            activeItem: ApplicationMenuState.GAME
         });
     }
 }

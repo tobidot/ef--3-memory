@@ -4,6 +4,7 @@ import { Shared } from "../../shared/Shared";
 
 interface Props {
     shared: Shared;
+    onStart?: () => void
 }
 
 interface State {
@@ -31,7 +32,7 @@ export class MainMenu extends React.Component<Props> {
                 <Grid.Row>
                     <Grid.Column verticalAlign="middle">
                         <Button.Group vertical>
-                            <Button positive onClick={this.start_button_func}>
+                            <Button positive onClick={this.startButtonFunc}>
                                 Start
                             </Button>
                         </Button.Group>
@@ -52,8 +53,8 @@ export class MainMenu extends React.Component<Props> {
         );
     }
 
-    public start_button_func = (event) => {
-
+    public startButtonFunc = () => {
+        if (this.props.onStart) this.props.onStart();
     }
 
 }
