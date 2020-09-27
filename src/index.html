@@ -29,8 +29,10 @@
             event.preventDefault();
         });
         document.body.addEventListener('contextmenu', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
+            if (event.target instanceof HTMLCanvasElement) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
         });
     </script>
 </body>
