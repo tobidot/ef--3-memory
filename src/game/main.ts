@@ -1,9 +1,9 @@
 import { Shared } from "../shared/Shared";
 import p5 from "p5";
 import "p5";
-(<any>window).p5 = p5;
-import 'p5/lib/addons/p5.sound';
-import { Game } from "./Game";
+// (<any>window).p5 = p5;
+// import 'p5/lib/addons/p5.sound';
+import { TemplateGame } from "./base/Game";
 
 export function load_game() {
     let innerContainer = document.createElement('div');
@@ -33,7 +33,7 @@ function connect_container_to_game_screen(container: HTMLDivElement, p5Instance:
 }
 
 function setup_p5_instance(p: p5) {
-    let game = new Game();
+    let game = new TemplateGame();
     p.preload = function () {
         game.preload();
     }
@@ -47,7 +47,7 @@ function setup_p5_instance(p: p5) {
         game.init(p);
     }
     p.draw = function () {
-        game.update(1.0 / 60.0, p);
-        game.draw(p);
+        game.update(1.0 / 60.0);
+        game.draw();
     }
 } 

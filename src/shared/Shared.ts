@@ -1,9 +1,9 @@
-import { Game } from "../game/Game";
+import { TemplateGame } from "../game/base/Game";
 import { ObservableSocket } from "@game.object/ts-game-toolbox/dist/src/signals/ObservableSocket";
 
 
 export class Shared {
-    public game = new ObservableSocket<Game | null>(null);
+    public game = new ObservableSocket<TemplateGame | null>(null);
     public game_screen_container = new ObservableSocket<HTMLDivElement | null>(null);
 
     private static instance: Shared;
