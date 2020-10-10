@@ -12,6 +12,10 @@ export class GameController extends tools.abstract.Controller<GameModel, GameVie
         this.view_manager.draw();
     }
 
+    public guess_character(character: string) {
+        this.model.guess(character);
+    }
+
     public update(dt: number) {
         this.model.update(dt);
     }
