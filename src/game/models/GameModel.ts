@@ -1,7 +1,7 @@
 import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/ModelViewComposer";
 import { ObservableSocket } from "@game.object/ts-game-toolbox/dist/src/signals/ObservableSocket";
-import { PlayerModel } from "../models/PlayerModel";
-import { WordModel } from "../models/WordModel";
+import { PlayerModel } from "./PlayerModel";
+import { WordModel } from "./WordModel";
 
 export class GameModel extends Model {
     public player: PlayerModel = new PlayerModel;

@@ -3,7 +3,7 @@ import p5 from "p5";
 import "p5";
 // (<any>window).p5 = p5;
 // import 'p5/lib/addons/p5.sound';
-import { TemplateGame } from "./base/Game";
+import { Game } from "./base/Game";
 
 export function load_game() {
     let innerContainer = document.createElement('div');
@@ -33,9 +33,8 @@ function connect_container_to_game_screen(container: HTMLDivElement, p5Instance:
 }
 
 function setup_p5_instance(p: p5) {
-    let game = new TemplateGame();
+    let game: Game | null = null;
     p.preload = function () {
-        game.preload();
     }
     let setup_done = false;
     p.setup = function () {
@@ -44,10 +43,12 @@ function setup_p5_instance(p: p5) {
         setup_done = true;
 
         p.frameRate(60);
-        game.init(p);
+        game = new Game(p);
     }
     p.draw = function () {
-        game.update(1.0 / 60.0);
-        game.draw();
+        if (game) {
+            game.update(1.0 / 60.0);
+            game.draw();
+        }
     }
 } 
