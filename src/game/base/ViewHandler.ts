@@ -10,6 +10,7 @@ export class ViewHandler {
 
     public draw() {
         if (!this.current_view) return;
+        if (this.current_view.update) this.current_view.update();
         this.current_view.draw();
     }
 }

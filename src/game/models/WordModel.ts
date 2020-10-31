@@ -8,10 +8,10 @@ export class WordModel extends Model {
         this.word = '';
     }
 
-    public reveal_characters(characters: Array<String>) {
+    public reveal_characters(characters: Array<string>): Array<string> {
         return this.word.split('').map((word_char) => {
-            return (characters.includes(word_char)) ? word_char : '*';
-        }).join('');
+            return (characters.includes(word_char.toLowerCase())) ? word_char : '';
+        });
     }
 
     public has_character(character: string): boolean {

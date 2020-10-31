@@ -6,9 +6,10 @@ import { GameViewManager } from "./GameViewManager";
 import { ViewHandler } from "./ViewHandler";
 import { ModelCollection } from "./ModelCollection";
 import { ControllerCollection } from "./ControllerCollection";
-import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/ModelViewComposer";
+import { Model, View } from "@game.object/ts-game-toolbox/dist/src/abstract/ModelViewComposer";
 import { ViewCollection } from "./ViewCollection";
 import { consts } from "../consts/Colors";
+import { GameView } from "../../tools/GameView";
 
 export class Game {
     public models: ModelCollection;
@@ -21,16 +22,23 @@ export class Game {
         this.views = new ViewCollection(p);
         this.view = new ViewHandler;
         this.controllers = new ControllerCollection(this.models, this.views);
-        this.view.set_current_view(this.views.main.set_color(consts.Color.GREEN));
+        this.apply_controller_response(this.controllers.game_controller.new_game());
+        p.keyPressed = () => {
+            this.controllers.input_controller.key_pressed(p.keyCode);
+        };
     }
 
     public update(delta_ms: number) {
         if (!this.controllers) return;
-        this.controllers.game_controller.update(delta_ms);
+        this.apply_controller_response(this.controllers.game_controller.update(delta_ms));
+    }
+
+    public apply_controller_response(view: GameView | null) {
+        if (view) this.view.set_current_view(view);
     }
 
     public draw() {
-        if (!this.models) return;
         this.view.draw();
     }
+
 }

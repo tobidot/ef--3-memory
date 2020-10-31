@@ -2,25 +2,46 @@ import { View } from "@game.object/ts-game-toolbox/dist/src/abstract/ModelViewCo
 import p5 from "p5";
 import { GameView } from "../../../tools/GameView";
 import { consts } from "../../consts/Colors";
+import { WordView } from "../partials/WordView";
 
 
 export class MainView extends GameView {
-    public color: consts.Color;
+    public fg_color: consts.Color;
+    public bg_color: consts.Color;
+    public letters: string[];
+    private word_view: WordView;
 
     public constructor(public p: p5) {
         super();
-        this.color = consts.Color.BLACK;
+        this.word_view = new WordView(p)
+            .letter_size.set(64)
+            .x.set(400)
+            .y.set(450);
+        this.fg_color = consts.Color.WHITE;
+        this.bg_color = consts.Color.BLACK;
+        this.letters = [];
     }
 
     public draw(): void {
-        const color = consts.color_to_p5(this.p, this.color);
+        const color = consts.color_to_p5(this.p, this.bg_color);
         this.p.background(color);
-        this.p.fill(200, 0, 0);
-        this.p.rect(0, 0, 100, 100);
+        this.word_view
+            .color.set(this.fg_color)
+            .letters.set(this.letters)
+            .draw();
     }
 
-    public set_color(color: consts.Color): this {
-        this.color = color;
+    public draw_word(x: number, y: number, letter_spacing: number) {
+    }
+
+    public set_colors(fg: consts.Color, bg?: consts.Color): this {
+        this.fg_color = fg;
+        if (bg !== undefined) this.bg_color = bg;
+        return this;
+    }
+
+    public set_letters(letters: Array<string>): this {
+        this.letters = letters;
         return this;
     }
 
