@@ -9,7 +9,7 @@ export namespace consts {
         WHITE
     }
 
-    export function color_to_p5(p, color: Color): p5.Color {
+    export function color_to_p5(p: p5, color: Color): p5.Color {
         switch (color) {
             case Color.RED: return p.color(255, 0, 0);
             case Color.GREEN: return p.color(0, 255, 0);

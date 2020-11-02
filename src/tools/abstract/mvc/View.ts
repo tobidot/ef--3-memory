@@ -1,4 +1,4 @@
-export class GameView {
+export class View {
     public constructor() { }
     public update: (() => void) | null = null;
     public draw() { };

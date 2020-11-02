@@ -1,31 +1,21 @@
-import { View } from "@game.object/ts-game-toolbox/dist/src/abstract/ModelViewComposer";
 import p5 from "p5";
-import { GameView } from "../../../tools/GameView";
+import { View } from "../../../tools/abstract/mvc/View";
+import { ViewProperty } from "../../../tools/signals/ChainProperty";
 import { consts } from "../../consts/Colors";
 import { HangedManView } from "../partials/HangedManView";
 import { WordView } from "../partials/WordView";
+import { views } from "../ViewCollection";
 
 
-export class MainView extends GameView {
+export class MainView extends View {
+    public p = new ViewProperty<this, p5 | null>(this, null);
     public fg_color: consts.Color;
     public bg_color: consts.Color;
     public letters: string[];
     public death_progress: number;
 
-    private word_view: WordView;
-    private hanged_man_view: HangedManView;
-
-    public constructor(public p: p5) {
+    public constructor() {
         super();
-        this.word_view = new WordView(p)
-            .letter_size.set(64)
-            .x.set(400)
-            .y.set(500);
-        this.hanged_man_view = new HangedManView(p)
-            .image_progress.set(0)
-            .color.set(consts.Color.WHITE)
-            .x.set(200)
-            .y.set(50);
         this.fg_color = consts.Color.WHITE;
         this.bg_color = consts.Color.BLACK;
         this.letters = [];
@@ -33,13 +23,22 @@ export class MainView extends GameView {
     }
 
     public draw(): void {
-        const color = consts.color_to_p5(this.p, this.bg_color);
-        this.p.background(color);
-        this.word_view
+        const p = this.p.get();
+        if (!p) return;
+        const color = consts.color_to_p5(p, this.bg_color);
+        p.background(color);
+        views.partials.word
+            .letter_size.set(64)
+            .x.set(400)
+            .y.set(500)
             .color.set(this.fg_color)
             .letters.set(this.letters)
             .draw();
-        this.hanged_man_view
+        views.partials.hanged_man
+            .image_progress.set(0)
+            .color.set(consts.Color.WHITE)
+            .x.set(200)
+            .y.set(50)
             .image_progress.set(this.death_progress)
             .draw();
     }

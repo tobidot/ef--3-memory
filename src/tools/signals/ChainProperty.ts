@@ -10,3 +10,5 @@ export class ViewProperty<VIEW, PROPERTY> {
         return this.property;
     }
 }
+
+export var CP = ViewProperty;

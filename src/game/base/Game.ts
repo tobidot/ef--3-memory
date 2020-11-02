@@ -1,44 +1,52 @@
 import p5 from "p5";
-import { tools } from "@game.object/ts-game-toolbox";
-import { GameController } from "../controllers/GameController";
-import { GameModel } from "../models/GameModel";
-import { GameViewManager } from "./GameViewManager";
-import { ViewHandler } from "./ViewHandler";
-import { ModelCollection } from "./ModelCollection";
-import { ControllerCollection } from "./ControllerCollection";
-import { Model, View } from "@game.object/ts-game-toolbox/dist/src/abstract/ModelViewComposer";
-import { ViewCollection } from "./ViewCollection";
-import { consts } from "../consts/Colors";
-import { GameView } from "../../tools/GameView";
+import { controllers } from "../controllers/ControllerCollection";
+import { View } from "../../tools/abstract/mvc/View";
+import { Controller, EventController } from "../../tools/abstract/mvc/Controller";
+import { ControllerRouteResponse } from "../../tools/abstract/mvc/ControllerRouteResponse";
+import { views } from "../views/ViewCollection";
 
 export class Game {
-    public models: ModelCollection;
-    public views: ViewCollection;
-    public view: ViewHandler;
-    public controllers: ControllerCollection;
+    public active_view: View | null = null;
+    public active_controller: EventController | null = null;
 
     constructor(p: p5) {
-        this.models = new ModelCollection;
-        this.views = new ViewCollection(p);
-        this.view = new ViewHandler;
-        this.controllers = new ControllerCollection(this.models, this.views);
-        this.apply_controller_response(this.controllers.game_controller.new_game());
+        this.apply_controller_response(controllers.game_controller.new_game());
         p.keyPressed = () => {
-            this.apply_controller_response(this.controllers.input_controller.key_pressed(p.keyCode));
+            if (!this.active_controller) return;
+            if (!this.active_controller.key_pressed) return;
+            this.apply_controller_response(this.active_controller.key_pressed(p.keyCode));
         };
+        debugger;
+        views.info.p.set(p);
+        views.main.p.set(p);
+        views.partials.hanged_man.p.set(p);
+        views.partials.word.p.set(p);
     }
 
     public update(delta_ms: number) {
-        if (!this.controllers) return;
-        this.apply_controller_response(this.controllers.game_controller.update(delta_ms));
+        if (!this.active_controller) return;
+        if (!this.active_controller.update) return;
+        this.apply_controller_response(this.active_controller.update(delta_ms));
     }
 
-    public apply_controller_response(view: GameView | null) {
-        if (view) this.view.set_current_view(view);
+    public apply_controller_response(response: ControllerRouteResponse) {
+        if (response === null) return;
+        if (response instanceof View) return this.set_active_view(response);
+        if (response instanceof Controller) return this.set_active_controller(response);
+        if (response.view !== undefined) this.set_active_view(response.view);
+        if (response.conotroller !== undefined) this.set_active_controller(response.conotroller);
+    }
+
+    public set_active_controller(controller: Controller | null) {
+        this.active_controller = controller;
+    }
+
+    public set_active_view(view: View | null) {
+        this.active_view = view;
     }
 
     public draw() {
-        this.view.draw();
+        if (this.active_view) this.active_view.draw();
     }
 
 }

@@ -1,10 +1,11 @@
 import p5 from "p5";
-import { GameView } from "../../../tools/GameView";
-import { ViewProperty } from "../../../tools/ViewProperty";
+import { View } from "../../../tools/abstract/mvc/View";
+import { ViewProperty } from "../../../tools/signals/ChainProperty";
 import { consts } from "../../consts/Colors";
 
-type Property<T> = ViewProperty<GameView, T>;
-export class HangedManView extends GameView {
+type Property<T> = ViewProperty<View, T>;
+export class HangedManView extends View {
+    public p = new ViewProperty<this, p5 | null>(this, null);
     public image_progress = new ViewProperty<this, number>(this, 0);
     public color = new ViewProperty<this, consts.Color>(this, consts.Color.WHITE);
     public x = new ViewProperty<this, number>(this, 0);
@@ -24,27 +25,25 @@ export class HangedManView extends GameView {
         [550, 220, 575, 280],
     ];
 
-    constructor(public p: p5) {
-        super();
-    }
-
     public draw(): void {
+        const p = this.p.get();
+        if (!p) return;
         const color = this.color.get();
         const x = this.x.get();
         const y = this.y.get();
         const image_progress = this.image_progress.get();
         const lines_to_draw = Math.floor(this.lines.length * Math.min(1, image_progress));
 
-        const p_color = consts.color_to_p5(this.p, color);
-        this.p.fill(0);
-        this.p.stroke(p_color);
-        this.p.strokeWeight(5);
+        const p_color = consts.color_to_p5(p, color);
+        p.fill(0);
+        p.stroke(p_color);
+        p.strokeWeight(5);
         for (let i = 0; i < lines_to_draw; ++i) {
             const line = this.lines[i];
             if (line.length === 4) {
-                this.p.line(line[0], line[1], line[2], line[3]);
+                p.line(line[0], line[1], line[2], line[3]);
             } else {
-                this.p.circle(line[0], line[1], line[2]);
+                p.circle(line[0], line[1], line[2]);
             }
         }
     }
