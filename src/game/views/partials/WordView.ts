@@ -23,6 +23,7 @@ export class WordView extends GameView {
         const y = this.y.get();
         const p_color = consts.color_to_p5(this.p, color);
         this.p.stroke(p_color);
+        this.p.strokeWeight(2);
         this.p.textSize(letter_size);
         letters.forEach((letter, index) => {
             if (letter === '') letter = '_';

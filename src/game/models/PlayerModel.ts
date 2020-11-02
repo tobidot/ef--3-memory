@@ -1,6 +1,11 @@
 export class PlayerModel {
     public guessed_characters: Array<string> = [];
+    public readonly max_lives: number = 5;
     public lives: number = 0;
+
+    public get_lives_as_fraction(): number {
+        return 1 - this.lives / this.max_lives;
+    }
 
     public add_guess(character: string) {
         this.guessed_characters.push(character);
@@ -11,11 +16,11 @@ export class PlayerModel {
     }
 
     public has_lost() {
-        return this.lives < 0;
+        return this.lives <= 0;
     }
 
     public reset() {
         this.guessed_characters = [];
-        this.lives = 5;
+        this.lives = this.max_lives;
     }
 }

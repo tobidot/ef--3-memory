@@ -24,7 +24,7 @@ export class Game {
         this.controllers = new ControllerCollection(this.models, this.views);
         this.apply_controller_response(this.controllers.game_controller.new_game());
         p.keyPressed = () => {
-            this.controllers.input_controller.key_pressed(p.keyCode);
+            this.apply_controller_response(this.controllers.input_controller.key_pressed(p.keyCode));
         };
     }
 
