@@ -1,11 +1,11 @@
 import p5 from "p5";
 import { View } from "../../../tools/abstract/mvc/View";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
+import { Game } from "../../base/Game";
 import { consts } from "../../consts/Colors";
 
 type Property<T> = ViewProperty<View, T>;
 export class HangedManView extends View {
-    public p = new ViewProperty<this, p5 | null>(this, null);
     public image_progress = new ViewProperty<this, number>(this, 0);
     public color = new ViewProperty<this, consts.Color>(this, consts.Color.WHITE);
     public x = new ViewProperty<this, number>(this, 0);
@@ -26,7 +26,7 @@ export class HangedManView extends View {
     ];
 
     public draw(): void {
-        const p = this.p.get();
+        const p = Game.p;
         if (!p) return;
         const color = this.color.get();
         const x = this.x.get();

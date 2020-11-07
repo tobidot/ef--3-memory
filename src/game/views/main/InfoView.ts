@@ -1,17 +1,17 @@
 import p5 from "p5";
 import { View } from "../../../tools/abstract/mvc/View";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
+import { Game } from "../../base/Game";
 import { consts } from "../../consts/Colors";
 
 
 export class InfoView extends View {
-    public p = new ViewProperty<this, p5 | null>(this, null);
     public fg_color = new ViewProperty<this, consts.Color>(this, consts.Color.WHITE);
     public bg_color = new ViewProperty<this, consts.Color>(this, consts.Color.BLACK);
     public text = new ViewProperty<this, Array<string>>(this, []);
 
     public draw(): void {
-        const p = this.p.get();
+        const p = Game.p;
         if (!p) return;
         const bg_color = consts.color_to_p5(p, this.bg_color.get());
         const fg_color = consts.color_to_p5(p, this.fg_color.get());

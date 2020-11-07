@@ -1,6 +1,7 @@
 import p5 from "p5";
 import { View } from "../../../tools/abstract/mvc/View";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
+import { Game } from "../../base/Game";
 import { consts } from "../../consts/Colors";
 import { HangedManView } from "../partials/HangedManView";
 import { WordView } from "../partials/WordView";
@@ -8,7 +9,6 @@ import { views } from "../ViewCollection";
 
 
 export class MainView extends View {
-    public p = new ViewProperty<this, p5 | null>(this, null);
     public fg_color: consts.Color;
     public bg_color: consts.Color;
     public letters: string[];
@@ -23,7 +23,7 @@ export class MainView extends View {
     }
 
     public draw(): void {
-        const p = this.p.get();
+        const p = Game.p;
         if (!p) return;
         const color = consts.color_to_p5(p, this.bg_color);
         p.background(color);

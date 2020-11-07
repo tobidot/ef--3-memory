@@ -1,4 +1,3 @@
-import { ControllerCollection } from "../../tools/abstract/mvc/Collections";
 import { GameController } from "./GameController";
 import { InputController } from "./InputController";
 

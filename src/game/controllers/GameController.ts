@@ -26,7 +26,7 @@ export class GameController extends Controller {
                 'You win if all letters of my word are revealed.',
                 'You loose if you have lost 5 lives.',
             ]),
-            conotroller: controllers.input_controller
+            controller: controllers.input_controller
         };
         return response;
     }

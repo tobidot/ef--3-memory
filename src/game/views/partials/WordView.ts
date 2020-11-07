@@ -1,6 +1,7 @@
 import p5 from "p5";
 import { View } from "../../../tools/abstract/mvc/View";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
+import { Game } from "../../base/Game";
 import { consts } from "../../consts/Colors";
 
 type Property<T> = ViewProperty<View, T>;
@@ -13,7 +14,7 @@ export class WordView extends View {
     public y = new ViewProperty<this, number>(this, 0);
 
     draw(): void {
-        const p = this.p.get();
+        const p = Game.p;
         if (!p) return;
         const color = this.color.get();
         const letter_size = this.letter_size.get();
