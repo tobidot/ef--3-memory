@@ -12,15 +12,17 @@ import { views } from "../ViewCollection";
 export class MainView extends View {
     public fg_color: Color;
     public bg_color: Color;
+    public animation_target_color: Color;
     public letters: string[];
     public letters_guessed = new ViewProperty<this, string[]>(this, []);
     public death_progress: number;
-    public lost_animation: number = 0;
+    public animation_progress: number = 0;
 
     public constructor() {
         super();
         this.fg_color = consts.Colors.WHITE;
         this.bg_color = consts.Colors.BLACK;
+        this.animation_target_color = consts.Colors.RED;
         this.letters = [];
         this.death_progress = 0;
     }
@@ -30,17 +32,17 @@ export class MainView extends View {
         if (!p) return;
         const color = this.bg_color.to_p5(p);
         p.background(color);
+        const hangman_color = consts.Colors.WHITE.lerp(
+            this.animation_target_color,
+            Math.max(0, Math.min(1, this.animation_progress))
+        );
         views.partials.word
             .letter_size.set(64)
             .x.set(400)
             .y.set(500)
-            .color.set(this.fg_color)
+            .color.set(hangman_color)
             .letters.set(this.letters)
             .draw();
-        const hangman_color = consts.Colors.WHITE.lerp(
-            consts.Colors.RED,
-            Math.max(0, Math.min(1, this.lost_animation))
-        );
         views.partials.hanged_man
             .image_progress.set(0)
             .color.set(hangman_color)

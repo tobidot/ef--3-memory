@@ -23,6 +23,7 @@ export class WordView extends View {
         const x = this.x.get() - letter_size * letters.length / 2;
         const y = this.y.get();
         const p_color = color.to_p5(p);
+        p.fill(p_color);
         p.stroke(p_color);
         p.strokeWeight(2);
         p.textSize(letter_size);

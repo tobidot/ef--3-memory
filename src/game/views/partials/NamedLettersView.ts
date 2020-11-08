@@ -11,6 +11,7 @@ export class NamedLettersView {
         const p = Game.p;
         if (!p) return;
         const letters = this.letters.get();
+        p.stroke(255);
         p.fill(255);
         p.strokeWeight(1);
         p.textSize(20);

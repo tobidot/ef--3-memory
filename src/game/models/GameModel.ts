@@ -11,6 +11,7 @@ export class GameModel extends Model {
     public info_screen_in_x_seconds: number | false = false;
     public state: GameState = GameState.INTRODUCTION;
     public lost_at_timestamp: number = 0;
+    public won_at_timestamp: number = 0;
 
     public update(delta_seconds: number) {
         this.word.update(delta_seconds);
@@ -26,6 +27,10 @@ export class GameModel extends Model {
             this.player.loose_live();
             if (this.player.has_lost()) {
                 this.lost_at_timestamp = Game.ingame_time_in_seconds;
+            }
+        } else {
+            if (this.word.is_complete(this.player.guessed_characters)) {
+                this.won_at_timestamp = Game.ingame_time_in_seconds;
             }
         }
     }
