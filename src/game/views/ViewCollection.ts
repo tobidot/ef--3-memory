@@ -3,6 +3,7 @@ import { ViewCollection } from "../../tools/abstract/mvc/Collections";
 import { InfoView } from "./main/InfoView";
 import { MainView } from "./main/MainView";
 import { HangedManView } from "./partials/HangedManView";
+import { NamedLettersView } from "./partials/NamedLettersView";
 import { WordView } from "./partials/WordView";
 
 export var views = {
@@ -11,5 +12,6 @@ export var views = {
     partials: {
         hanged_man: new HangedManView,
         word: new WordView,
+        named_letters: new NamedLettersView,
     }
 };

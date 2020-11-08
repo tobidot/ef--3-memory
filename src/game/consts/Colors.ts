@@ -1,23 +1,12 @@
 import p5 from "p5";
+import { RGBColor } from "../../tools/data/Color";
 
 export namespace consts {
-    export enum Color {
-        RED,
-        BLUE,
-        GREEN,
-        BLACK,
-        WHITE
-    }
-
-    export function color_to_p5(p: p5, color: Color): p5.Color {
-        switch (color) {
-            case Color.RED: return p.color(255, 0, 0);
-            case Color.GREEN: return p.color(0, 255, 0);
-            case Color.BLUE: return p.color(0, 0, 255);
-            case Color.WHITE: return p.color(255, 255, 255);
-            case Color.BLACK: return p.color(0, 0, 0);
-
-            default: return p.color(255, 255, 1);
-        }
+    export namespace Colors {
+        export const RED = new RGBColor(255, 0, 0);
+        export const BLUE = new RGBColor(0, 0, 255);
+        export const GREEN = new RGBColor(0, 255, 0);
+        export const BLACK = new RGBColor(0, 0, 0);
+        export const WHITE = new RGBColor(255, 255, 255);
     }
 }

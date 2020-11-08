@@ -7,6 +7,10 @@ export class PlayerModel {
         return 1 - this.lives / this.max_lives;
     }
 
+    public has_already_guessed(character: string): boolean {
+        return this.guessed_characters.includes(character);
+    }
+
     public add_guess(character: string) {
         this.guessed_characters.push(character);
     }

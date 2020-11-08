@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { View } from "../../../tools/abstract/mvc/View";
+import { Color } from "../../../tools/data/Color";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
 import { Game } from "../../base/Game";
 import { consts } from "../../consts/Colors";
@@ -9,7 +10,7 @@ export class WordView extends View {
     public p = new ViewProperty<this, p5 | null>(this, null);
     public letters = new ViewProperty<this, Array<string>>(this, []);
     public letter_size = new ViewProperty<this, number>(this, 64);
-    public color = new ViewProperty<this, consts.Color>(this, consts.Color.WHITE);
+    public color = new ViewProperty<this, Color>(this, consts.Colors.WHITE);
     public x = new ViewProperty<this, number>(this, 0);
     public y = new ViewProperty<this, number>(this, 0);
 
@@ -21,7 +22,7 @@ export class WordView extends View {
         const letters = this.letters.get();
         const x = this.x.get() - letter_size * letters.length / 2;
         const y = this.y.get();
-        const p_color = consts.color_to_p5(p, color);
+        const p_color = color.to_p5(p);
         p.stroke(p_color);
         p.strokeWeight(2);
         p.textSize(letter_size);

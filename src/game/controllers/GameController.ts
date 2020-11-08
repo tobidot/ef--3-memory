@@ -2,6 +2,8 @@
 import { Controller } from "../../tools/abstract/mvc/Controller";
 import { ControllerRouteResponse, ControllerRouteResponseType } from "../../tools/abstract/mvc/ControllerRouteResponse";
 import { View } from "../../tools/abstract/mvc/View";
+import { Game } from "../base/Game";
+import { GameState } from "../models/helper/GameState";
 import { models } from "../models/ModelCollection";
 import { views } from "../views/ViewCollection";
 import { controllers } from "./ControllerCollection";
@@ -36,6 +38,11 @@ export class GameController extends Controller {
             const letters = models.game.word.reveal_characters(models.game.player.guessed_characters);
             views.main.set_letters(letters);
             views.main.death_progress = models.game.player.get_lives_as_fraction();
+            views.main.letters_guessed.set(models.game.player.guessed_characters);
+            views.main.lost_animation =
+                (models.game.state === GameState.LOOSE)
+                    ? (Game.ingame_time_in_seconds - models.game.lost_at_timestamp) / 2
+                    : 0;
         });
     }
 

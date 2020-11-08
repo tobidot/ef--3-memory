@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { View } from "../../../tools/abstract/mvc/View";
+import { Color } from "../../../tools/data/Color";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
 import { Game } from "../../base/Game";
 import { consts } from "../../consts/Colors";
@@ -7,9 +8,10 @@ import { consts } from "../../consts/Colors";
 type Property<T> = ViewProperty<View, T>;
 export class HangedManView extends View {
     public image_progress = new ViewProperty<this, number>(this, 0);
-    public color = new ViewProperty<this, consts.Color>(this, consts.Color.WHITE);
+    public color = new ViewProperty<this, Color>(this, consts.Colors.WHITE);
     public x = new ViewProperty<this, number>(this, 0);
     public y = new ViewProperty<this, number>(this, 0);
+
 
     protected lines = [
         [400, 350, 450, 400],
@@ -34,7 +36,8 @@ export class HangedManView extends View {
         const image_progress = this.image_progress.get();
         const lines_to_draw = Math.floor(this.lines.length * Math.min(1, image_progress));
 
-        const p_color = consts.color_to_p5(p, color);
+        const p_color = color.to_p5(p);
+        const red_color = consts.Colors.RED.to_p5(p);
         p.fill(0);
         p.stroke(p_color);
         p.strokeWeight(5);
