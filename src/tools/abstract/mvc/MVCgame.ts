@@ -1,12 +1,23 @@
 import p5 from "p5";
-import { Controller, EventController } from "./Controller";
+import { Controller, EventControllerInterface, is_controller_interface, is_event_controller_interface } from "./Controller";
 import { ControllerEvent, is_controller_event } from "./ControllerEvent";
 import { ControllerRouteResponse } from "./ControllerRouteResponse";
-import { View } from "./View";
+import { is_view_interface, View, ViewInterface } from "./View";
 
+
+/**
+ * <
+    // MODEL_COLLECTION extends ModelCollection,
+    // VIEW_COLLECTION extends ViewCollection,
+    // CONTROLLER_COLLECTION extends ControllerCollection,
+    // MODEL extends Model<MODEL_COLLECTION> = Model<MODEL_COLLECTION>,
+    // VIEW extends View<VIEW_COLLECTION> = View<VIEW_COLLECTION>,
+    // CONTROLLER extends Controller<MODEL_COLLECTION, VIEW_COLLECTION, CONTROLLER_COLLECTION> = Controller<MODEL_COLLECTION, VIEW_COLLECTION, CONTROLLER_COLLECTION>,
+    >
+ */
 export class MVCGame {
-    public active_view: View | null = null;
-    public active_controller: EventController | null = null;
+    public active_view: ViewInterface | null = null;
+    public active_controller: EventControllerInterface | null = null;
     public event_queue: Array<ControllerEvent> = [];
     public ingame_time_in_seconds = 0;
 
@@ -36,8 +47,8 @@ export class MVCGame {
 
     public apply_controller_response(response: ControllerRouteResponse) {
         if (response === null) return;
-        if (response instanceof View) return this.set_active_view(response);
-        if (response instanceof Controller) return this.set_active_controller(response);
+        if (is_view_interface(response)) return this.set_active_view(response);
+        if (is_event_controller_interface(response)) return this.set_active_controller(response);
         if (is_controller_event(response)) return this.event_queue.push(response);
         if (response.view !== undefined) {
             this.set_active_view(response.view);
@@ -58,11 +69,11 @@ export class MVCGame {
         this.active_view.draw();
     }
 
-    protected set_active_controller(controller: Controller | null) {
+    protected set_active_controller(controller: EventControllerInterface | null) {
         this.active_controller = controller;
     }
 
-    protected set_active_view(view: View | null) {
+    protected set_active_view(view: ViewInterface | null) {
         this.active_view = view;
     }
 }

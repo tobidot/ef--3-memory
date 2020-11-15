@@ -1,10 +1,10 @@
-import { Controller, EventController } from "../../tools/abstract/mvc/Controller";
+import { Controller, EventControllerInterface } from "../../tools/abstract/mvc/Controller";
 import { View } from "../../tools/abstract/mvc/View";
 import { ControllerRouteResponse } from "../../tools/abstract/mvc/ControllerRouteResponse";
 import { ControllerEvent } from "../../tools/abstract/mvc/ControllerEvent";
 import { BaseController } from "./BaseController";
 
-export class InputController extends BaseController implements EventController {
+export class InputController extends BaseController implements EventControllerInterface {
 
     public key_pressed(key_code: number): ControllerRouteResponse {
         if (key_code >= 0x40 && key_code <= 0x5A) {

@@ -1,11 +1,11 @@
-import { Controller } from "./Controller";
+import { ControllerInterface, EventControllerInterface } from "./Controller";
 import { ControllerEvent } from "./ControllerEvent";
-import { View } from "./View";
+import { ViewInterface } from "./View";
 
-export type ControllerRouteResponse = null | View | Controller | ControllerEvent | ControllerRouteResponseType;
+export type ControllerRouteResponse = null | ViewInterface | EventControllerInterface | ControllerEvent | ControllerRouteResponseType;
 
 export interface ControllerRouteResponseType {
-    view?: View | null;
-    controller?: Controller | null;
+    view?: ViewInterface | null;
+    controller?: EventControllerInterface | null;
     events?: Array<ControllerEvent>;
 }
