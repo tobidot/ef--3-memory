@@ -1,4 +1,3 @@
-import p5 from "p5";
 import { RGBColor } from "../../tools/data/Color";
 
 export namespace consts {

@@ -1,17 +1,19 @@
-import p5 from "p5";
-import { ViewCollection } from "../../tools/abstract/mvc/Collections";
+import { Game } from "../base/Game";
 import { InfoView } from "./main/InfoView";
 import { MainView } from "./main/MainView";
-import { HangedManView } from "./partials/HangedManView";
-import { NamedLettersView } from "./partials/NamedLettersView";
-import { WordView } from "./partials/WordView";
 
 export var views = {
     main: new MainView,
     info: new InfoView,
     partials: {
-        hanged_man: new HangedManView,
-        word: new WordView,
-        named_letters: new NamedLettersView,
     }
 };
+
+export function create_views(game: Game) {
+    return {
+        main: new MainView(game),
+        info: new InfoView(game),
+        partials: {
+        }
+    };
+}

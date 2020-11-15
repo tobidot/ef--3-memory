@@ -1,7 +1,12 @@
 import { GameController } from "./GameController";
-import { InputController } from "./InputController";
+import { InputController as InfoController } from "./InfoController";
 
-export var controllers = {
+export interface ControllerCollection {
+    game_controller: GameController,
+    info_controller: InfoController,
+}
+
+export var controllers: ControllerCollection = {
     game_controller: new GameController,
-    input_controller: new InputController,
+    info_controller: new InfoController,
 };

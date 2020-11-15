@@ -1,5 +1,3 @@
-import p5, { RGB } from "p5";
-
 export type Color = RGBColor;
 
 export class RGBColor {
@@ -12,8 +10,8 @@ export class RGBColor {
 
     }
 
-    public to_p5(p: p5): p5.Color {
-        return p.color(this.r, this.g, this.b, this.a);
+    public to_hex(): string {
+        return "#" + [this.a, this.r, this.g, this.b].map(v => v.toString(16)).join('');
     }
 
     public lerp(other: Color, t: number): RGBColor {
