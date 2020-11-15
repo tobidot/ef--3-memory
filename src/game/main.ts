@@ -1,54 +1,30 @@
 import { Shared } from "../shared/Shared";
-import p5 from "p5";
-import "p5";
-// (<any>window).p5 = p5;
-// import 'p5/lib/addons/p5.sound';
 import { Game } from "./base/Game";
 
 export function load_game() {
     let innerContainer = document.createElement('div');
-    let p5Instance = new p5(setup_p5_instance, innerContainer);
-    connect_container_to_game_screen(innerContainer, p5Instance);
+    connect_container_to_game_screen(innerContainer);
 }
 
-function connect_container_to_game_screen(container: HTMLDivElement, p5Instance: p5) {
+function connect_container_to_game_screen(container: HTMLDivElement) {
     let shared = Shared.get_instance();
+    let game: Game | null = null;
     shared.game_screen_container.add((signal) => {
-        console.log('change');
-        let canvas = (<any>p5Instance).canvas as HTMLCanvasElement;
+        console.log('Container Loaded');
         if (signal.new === null) {
-            if (canvas) {
-                canvas.style.visibility = "hidden";
-            }
-            if (signal.old) signal.old.removeChild(container);
         } else {
-            signal.new.append(container);
-            if (canvas) {
-                canvas.style.visibility = "visible";
-                canvas.style.width = "100%";
-                canvas.style.height = "auto";
-            }
+            if (!game) game = start_game();
         }
     });
 }
 
-function setup_p5_instance(p: p5) {
-    let game: Game | null = null;
-    p.preload = function () {
+function start_game(): Game {
+    let game: Game = new Game();
+    let animation_frame = (delta_ms: number) => {
+        game.update(delta_ms / 1000);
+        game.draw();
+        requestAnimationFrame(animation_frame);
     }
-    let setup_done = false;
-    p.setup = function () {
-        p.createCanvas(800, 600, "p2d");
-        if (setup_done) return;
-        setup_done = true;
-
-        p.frameRate(60);
-        game = new Game();
-    }
-    p.draw = function () {
-        if (game) {
-            game.update(1.0 / 60.0);
-            game.draw();
-        }
-    }
+    requestAnimationFrame(animation_frame);
+    return game;
 } 

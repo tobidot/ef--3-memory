@@ -11,7 +11,7 @@ export class RGBColor {
     }
 
     public to_hex(): string {
-        return "#" + [this.a, this.r, this.g, this.b].map(v => v.toString(16)).join('');
+        return "#" + [this.r, this.g, this.b, this.a].map(v => ("00" + v.toString(16)).substr(-2)).join('');
     }
 
     public lerp(other: Color, t: number): RGBColor {

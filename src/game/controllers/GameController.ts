@@ -1,8 +1,6 @@
 
 import { Controller, EventControllerInterface } from "../../tools/abstract/mvc/Controller";
 import { ControllerRouteResponse, ControllerRouteResponseType } from "../../tools/abstract/mvc/ControllerRouteResponse";
-import { ControllerEventConstructor } from "../../tools/abstract/mvc/helpers/ControllerEvent";
-import { View } from "../../tools/abstract/mvc/View";
 import { ModelCollection } from "../models/ModelCollection";
 import { ViewCollection } from "../views/ViewCollection";
 import { ControllerCollection } from "./ControllerCollection";

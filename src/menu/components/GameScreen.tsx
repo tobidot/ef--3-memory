@@ -26,7 +26,9 @@ export class GameScreen extends React.PureComponent<Props> {
                         justifyContent: "center",
                         alignItems: "center",
                         display: "flex"
-                    }} />
+                    }} >
+                    <canvas id="canvas" width="800" height="600"></canvas>
+                </div>
             </Container>
         );
     }
