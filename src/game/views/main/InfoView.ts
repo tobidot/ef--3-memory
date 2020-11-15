@@ -3,9 +3,10 @@ import { View } from "../../../tools/abstract/mvc/View";
 import { Color } from "../../../tools/data/Color";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
 import { consts } from "../../consts/Colors";
+import { ViewCollection } from "../ViewCollection";
 
 
-export class InfoView extends CanvasView {
+export class InfoView extends CanvasView<ViewCollection> {
     public fg_color = new ViewProperty<this, Color>(this, consts.Colors.WHITE);
     public bg_color = new ViewProperty<this, Color>(this, consts.Colors.BLACK);
     public text = new ViewProperty<this, Array<string>>(this, []);

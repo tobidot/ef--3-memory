@@ -9,15 +9,18 @@ import { GameGlobal } from "./GameGlobal";
 import { create_models } from "../models/ModelCollection";
 
 export class Game extends MVCGame {
-    public references: GameGlobal = {
-        ingame_time_in_seconds: 0,
-        models: create_models(this),
-        controllers: create_controllers(this),
-        views: create_views(this),
-    }
+    public references: GameGlobal;
 
     constructor() {
         super();
+        const canvas = document.getElementById('canvas');
+        if (!(canvas instanceof HTMLCanvasElement)) throw new Error("Canvas not found");
+        this.references = {
+            ingame_time_in_seconds: 0,
+            models: create_models(this),
+            controllers: create_controllers(this),
+            views: create_views(canvas),
+        }
         this.apply_controller_response(controllers.game_controller.new_game());
     }
 

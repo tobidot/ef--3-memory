@@ -1,5 +1,7 @@
-export class View {
-    public constructor() { }
+export class View<COLLECTION> {
+    public constructor(protected collection: COLLECTION) {
+
+    }
     public update: (() => void) | null = null;
     public draw() { };
 
