@@ -1,4 +1,4 @@
-import { ControllerCollection, ModelCollection, ViewCollection } from "./Collections";
+import { ControllerCollectionBase, ModelCollectionBase, ViewCollectionBase } from "./Collections";
 import { ControllerEvent } from "./ControllerEvent";
 import { ControllerRouteResponse, ControllerRouteResponseType } from "./ControllerRouteResponse";
 
@@ -6,9 +6,9 @@ export interface ControllerInterface {
 
 }
 export class Controller<
-    MODEL_COLLECTION extends ModelCollection,
-    VIEW_COLLECTION extends ViewCollection,
-    CONTROLLER_COLLECTION extends ControllerCollection
+    MODEL_COLLECTION extends ModelCollectionBase,
+    VIEW_COLLECTION extends ViewCollectionBase,
+    CONTROLLER_COLLECTION extends ControllerCollectionBase
     > implements ControllerInterface {
     public constructor(
         protected models: MODEL_COLLECTION,

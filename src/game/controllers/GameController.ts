@@ -1,12 +1,13 @@
 
-import { Controller } from "../../tools/abstract/mvc/Controller";
+import { Controller, EventControllerInterface } from "../../tools/abstract/mvc/Controller";
 import { ControllerRouteResponse, ControllerRouteResponseType } from "../../tools/abstract/mvc/ControllerRouteResponse";
+import { ControllerEventConstructor } from "../../tools/abstract/mvc/helpers/ControllerEvent";
 import { View } from "../../tools/abstract/mvc/View";
 import { ModelCollection } from "../models/ModelCollection";
 import { ViewCollection } from "../views/ViewCollection";
 import { ControllerCollection } from "./ControllerCollection";
 
-export class GameController extends Controller<ModelCollection, ViewCollection, ControllerCollection> {
+export class GameController extends Controller<ModelCollection, ViewCollection, ControllerCollection> implements EventControllerInterface {
 
     public new_game(): ControllerRouteResponse {
         this.models.game.reset();
@@ -23,4 +24,7 @@ export class GameController extends Controller<ModelCollection, ViewCollection, 
         });
     }
 
+    public update(delta_seconds: number): ControllerRouteResponse {
+        return null;
+    }
 }

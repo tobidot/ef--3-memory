@@ -1,15 +1,19 @@
 import { Game } from "../../../../game/base/Game";
 import { ControllerEvent } from "../ControllerEvent";
-
-export function event(event: string | ControllerEvent): ControllerEventConstructor {
-    return new ControllerEventConstructor(event);
+interface TimeProvider {
+    ingame_time_in_seconds: number
 }
+
+export function event(event: string | ControllerEvent, time_provider: TimeProvider): ControllerEventConstructor {
+    return new ControllerEventConstructor(event, time_provider);
+}
+
 
 export class ControllerEventConstructor implements ControllerEvent {
     public event_name: string;
     public fire_at?: number;
 
-    constructor(public event: string | ControllerEvent) {
+    constructor(public event: string | ControllerEvent, protected time_provide: TimeProvider) {
         if (typeof event === "string") {
             this.event_name = event;
         } else {
@@ -19,7 +23,7 @@ export class ControllerEventConstructor implements ControllerEvent {
     }
 
     public after_x_seconds(seconds: number): this {
-        this.fire_at = Game.ingame_time_in_seconds + seconds;
+        this.fire_at = this.time_provide.ingame_time_in_seconds + seconds;
         return this;
     }
 

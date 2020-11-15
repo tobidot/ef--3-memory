@@ -1,9 +1,10 @@
+import { ViewCollectionBase } from "../../tools/abstract/mvc/Collections";
 import { View } from "../../tools/abstract/mvc/View";
 import { Game } from "../base/Game";
 import { InfoView } from "./main/InfoView";
 import { MainView } from "./main/MainView";
 
-export interface ViewCollection {
+export interface ViewCollection extends ViewCollectionBase {
     main: MainView,
     info: InfoView,
     partials: {

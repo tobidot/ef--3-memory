@@ -1,7 +1,7 @@
-import { ControllerEventConstructor } from "./helpers/ControllerEvent"
+import { ViewCollectionBase } from "./Collections";
 import { View } from "./View";
 
-export class CanvasView<COLLECTION> extends View<COLLECTION> {
+export class CanvasView<COLLECTION extends ViewCollectionBase> extends View<COLLECTION> {
     protected context: CanvasRenderingContext2D;
     public constructor(public canvas: HTMLCanvasElement, collection: COLLECTION) {
         super(collection);

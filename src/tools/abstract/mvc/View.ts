@@ -1,4 +1,4 @@
-import { ViewCollection } from "./Collections";
+import { ViewCollectionBase } from "./Collections";
 
 export interface ViewInterface {
     update: (() => void) | null;
@@ -9,7 +9,7 @@ export interface ViewInterface {
 export function is_view_interface(view: any): view is ViewInterface {
     return view instanceof View;
 }
-export class View<VIEW_COLLECTION extends ViewCollection> implements ViewInterface {
+export class View<VIEW_COLLECTION extends ViewCollectionBase> implements ViewInterface {
     public constructor(protected collection: VIEW_COLLECTION) {
 
     }

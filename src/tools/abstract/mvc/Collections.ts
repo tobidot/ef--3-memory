@@ -3,6 +3,6 @@ import { Collection } from "../../trees/Collection";
 import { Controller, ControllerInterface } from "./Controller";
 import { View, ViewInterface } from "./View";
 
-export interface ModelCollection extends Collection<Model> { }
-export interface ViewCollection extends Collection<ViewInterface> { }
-export interface ControllerCollection extends Collection<ControllerInterface> { }
+export interface ModelCollectionBase extends Collection<Model> { }
+export interface ViewCollectionBase extends Collection<ViewInterface> { }
+export interface ControllerCollectionBase extends Collection<ControllerInterface> { }

@@ -22,7 +22,7 @@ export class InputController extends BaseController implements EventControllerIn
         return null;
     }
 
-    public update(dt: number): View | null {
+    public update(dt: number): ControllerRouteResponse {
         this.models.game.update(dt);
         return null;
     }

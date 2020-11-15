@@ -1,5 +1,5 @@
-import { ModelCollection } from "./Collections";
+import { ModelCollectionBase } from "./Collections";
 
-export class Model<MODEL_COLLECTION extends ModelCollection> {
+export class Model<MODEL_COLLECTION extends ModelCollectionBase> {
 
 }

@@ -43,7 +43,7 @@ function setup_p5_instance(p: p5) {
         setup_done = true;
 
         p.frameRate(60);
-        game = new Game(p);
+        game = new Game();
     }
     p.draw = function () {
         if (game) {

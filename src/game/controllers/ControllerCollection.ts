@@ -1,9 +1,10 @@
+import { ControllerCollectionBase } from "../../tools/abstract/mvc/Collections";
 import { ModelCollection } from "../models/ModelCollection";
 import { ViewCollection } from "../views/ViewCollection";
 import { GameController } from "./GameController";
 import { InputController as InfoController } from "./InfoController";
 
-export interface ControllerCollection {
+export interface ControllerCollection extends ControllerCollectionBase {
     game_controller: GameController,
     info_controller: InfoController,
 }
