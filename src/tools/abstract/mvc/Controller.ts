@@ -1,8 +1,18 @@
 import { ControllerEvent } from "./ControllerEvent";
 import { ControllerRouteResponse, ControllerRouteResponseType } from "./ControllerRouteResponse";
 
-export class Controller implements EventController {
+export class Controller<
+    MODEL_COLLECTION,
+    VIEW_COLLECTION,
+    CONTROLLER_COLLECTION
+    > {
+    public constructor(
+        protected models: MODEL_COLLECTION,
+        protected views: VIEW_COLLECTION,
+        protected controllers: CONTROLLER_COLLECTION,
+    ) {
 
+    }
 }
 
 export interface EventController {

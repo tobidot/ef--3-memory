@@ -1,10 +1,10 @@
-import { Controller } from "../../tools/abstract/mvc/Controller";
+import { Controller, EventController } from "../../tools/abstract/mvc/Controller";
 import { View } from "../../tools/abstract/mvc/View";
-import { models } from "../models/ModelCollection";
 import { ControllerRouteResponse } from "../../tools/abstract/mvc/ControllerRouteResponse";
 import { ControllerEvent } from "../../tools/abstract/mvc/ControllerEvent";
+import { BaseController } from "./BaseController";
 
-export class InputController extends Controller {
+export class InputController extends BaseController implements EventController {
 
     public key_pressed(key_code: number): ControllerRouteResponse {
         if (key_code >= 0x40 && key_code <= 0x5A) {
@@ -23,7 +23,7 @@ export class InputController extends Controller {
     }
 
     public update(dt: number): View | null {
-        models.game.update(dt);
+        this.models.game.update(dt);
         return null;
     }
 }
