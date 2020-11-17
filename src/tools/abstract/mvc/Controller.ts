@@ -23,8 +23,8 @@ export function is_controller_interface(controller: any): controller is Controll
     return controller instanceof Controller;
 }
 export interface EventControllerInterface {
-    key_pressed?: (key_code: number) => ControllerRouteResponse;
-    mouse_pressed?: (x: number, y: number) => ControllerRouteResponse;
+    key_pressed?: (key_code: KeyboardEvent) => ControllerRouteResponse;
+    mouse_pressed?: (event: MouseEvent) => ControllerRouteResponse;
     update?: (delta_seconds: number) => ControllerRouteResponse;
     dispatch_event?: (event: ControllerEvent) => ControllerRouteResponse;
 }

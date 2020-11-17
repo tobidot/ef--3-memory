@@ -10,8 +10,13 @@ export class GameController extends Controller<ModelCollection, ViewCollection, 
     public new_game(): ControllerRouteResponse {
         this.models.game.reset();
         const response: ControllerRouteResponseType = {
-            view: this.views.info.text.set([]),
-            controller: this,
+            view: this.views.info.text.set([
+                'Tic Tac Toe',
+                '',
+                'In this game you play on a small Grid',
+                'and try to create a straight line of your symbols.',
+            ]),
+            controller: this.controllers.for_event.info_controller,
         };
         return response;
     }

@@ -20,6 +20,18 @@ export class Game extends MVCGame {
             controllers,
             views,
         };
+        canvas.addEventListener("keydown", (event) => {
+            if (!this.active_controller) return;
+            if (this.active_controller.key_pressed) {
+                this.apply_controller_response(this.active_controller.key_pressed(event));
+            }
+        });
+        canvas.addEventListener("click", (event) => {
+            if (!this.active_controller) return;
+            if (this.active_controller.mouse_pressed) {
+                this.apply_controller_response(this.active_controller.mouse_pressed(event));
+            }
+        });
         this.apply_controller_response(controllers.game_controller.new_game());
     }
 
