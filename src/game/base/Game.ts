@@ -29,7 +29,10 @@ export class Game extends MVCGame {
         canvas.addEventListener("click", (event) => {
             if (!this.active_controller) return;
             if (this.active_controller.mouse_pressed) {
-                this.apply_controller_response(this.active_controller.mouse_pressed(event));
+                const x = (event.x - canvas.offsetLeft) * canvas.width / canvas.clientWidth;
+                const y = (event.y - canvas.offsetTop) * canvas.height / canvas.clientHeight;
+                const response = this.active_controller.mouse_pressed(event, x, y);
+                this.apply_controller_response(response);
             }
         });
         this.apply_controller_response(controllers.game_controller.new_game());

@@ -15,6 +15,7 @@ export class InfoView extends CanvasView<ViewCollection> {
         const context: CanvasRenderingContext2D = this.context;
         const bg_color = this.bg_color.get();
         const fg_color = this.fg_color.get();
+        context.textAlign = "left";
         context.font = (28 + "px" + " Arial, sans-serif");
         context.fillStyle = (bg_color.to_hex());
         context.fillRect(0, 0, 800, 600);

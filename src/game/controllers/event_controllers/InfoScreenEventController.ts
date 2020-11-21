@@ -6,9 +6,10 @@ export class InfoScreenEventController extends BaseController implements EventCo
 
     public key_pressed(event: KeyboardEvent): ControllerRouteResponse {
         if (event.key === "Enter") {
-            return this.views.info.text.set([
-                'Start again',
-            ]);
+            return {
+                view: this.views.main.fields.set(this.models.game.get_fields_as_string()),
+                controller: this.controllers.for_event.game_controller,
+            };
         }
         return null;
     }
