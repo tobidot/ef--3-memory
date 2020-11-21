@@ -13,6 +13,7 @@ export class MainView extends CanvasView<ViewCollection> {
     public fields = new ViewProperty<this, Array<string>>(this, []);
 
     public draw(): void {
+        this.reset_canvas_state();
         this.context.fillStyle = this.bg_color.get().to_hex();
         this.context.fillRect(0, 0, 800, 600);
         const base_x = 200;

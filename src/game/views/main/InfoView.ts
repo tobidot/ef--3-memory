@@ -11,6 +11,7 @@ export class InfoView extends CanvasView<ViewCollection> {
     public text = new ViewProperty<this, Array<string>>(this, []);
 
     public draw(): void {
+        this.reset_canvas_state();
         const context: CanvasRenderingContext2D = this.context;
         const bg_color = this.bg_color.get();
         const fg_color = this.fg_color.get();

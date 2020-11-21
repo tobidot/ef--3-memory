@@ -9,5 +9,10 @@ export class CanvasView<COLLECTION extends ViewCollectionBase> extends View<COLL
         if (!ctx) throw new Error("could not create context");
         this.context = ctx;
     }
-
+    protected reset_canvas_state() {
+        this.context.font = "32px monospace";
+        this.context.textAlign = "left";
+        this.context.fillStyle = "black";
+        this.context.strokeStyle = "white";
+    }
 }
