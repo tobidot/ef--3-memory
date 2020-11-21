@@ -1,11 +1,9 @@
 
-import { Controller, EventControllerInterface } from "../../tools/abstract/mvc/Controller";
+import { EventControllerInterface } from "../../tools/abstract/mvc/Controller";
 import { ControllerRouteResponse, ControllerRouteResponseType } from "../../tools/abstract/mvc/ControllerRouteResponse";
-import { ModelCollection } from "../models/ModelCollection";
-import { ViewCollection } from "../views/ViewCollection";
-import { ControllerCollection } from "./ControllerCollection";
+import { BaseController } from "./BaseController";
 
-export class GameController extends Controller<ModelCollection, ViewCollection, ControllerCollection> implements EventControllerInterface {
+export class GameController extends BaseController implements EventControllerInterface {
 
     public new_game(): ControllerRouteResponse {
         this.models.game.reset();
