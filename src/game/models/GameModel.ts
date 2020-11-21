@@ -12,6 +12,7 @@ export class GameModel extends Model<ModelCollection> {
     width: number = 3;
     height: number = 3;
     fields: Array<FieldModel> = [];
+    active_player: "X" | "O" = "X";
 
     public constructor() {
         super();
@@ -24,9 +25,16 @@ export class GameModel extends Model<ModelCollection> {
     public reset() {
         this.width = this.height = 3;
         const size = this.width * this.height;
+        this.active_player = "X";
         this.fields = [...new Array(size)].map(() => {
             return new FieldModel();
         });
+    }
+
+    public active_player_pick_position(x: number, y: number) {
+        if (this.can_set(x, y)) {
+            this.set(x, y, this.active_player);
+        }
     }
 
     public get_fields_as_string(): string[] {
@@ -35,21 +43,23 @@ export class GameModel extends Model<ModelCollection> {
         });
     }
 
-    public relative_get_field_at(x: number, y: number): FieldModel | undefined {
+    public convert_relative_position_to_field_position(x: number, y: number): false | [number, number] {
         const fx = Math.floor(x * this.width);
         const fy = Math.floor(y * this.height);
-        return this.fields[fx + fy * this.width];
+        if (!this.is_within_bounds(fx, fy)) return false;
+        return [fx, fy];
+
     }
 
-    public relative_can_set(x: number, y: number): boolean {
-        const field = this.relative_get_field_at(x, y);
+    public can_set(x: number, y: number): boolean {
+        const field = this.at(x, y);
         if (!field) return false;
         if (field.type !== " ") return false;
         return true;
     }
 
-    public relative_set(x: number, y: number, type: "X" | "O") {
-        const field = this.relative_get_field_at(x, y);
+    public set(x: number, y: number, type: "X" | "O") {
+        const field = this.at(x, y);
         if (!field) return false;
         if (field.type !== " ") return false;
         field.type = type;
@@ -76,8 +86,6 @@ export class GameModel extends Model<ModelCollection> {
             return next.type;
         }, false);
     }
-
-
 
     public has_horizontal_strike(): false | Strike {
         for (let y = 0; y < this.height; y++) {
