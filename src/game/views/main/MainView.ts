@@ -1,9 +1,9 @@
 import { CanvasView } from "../../../tools/abstract/mvc/CanvasView";
 import { View } from "../../../tools/abstract/mvc/View";
+import { consts } from "../../../tools/commons/Colors";
 import { Color } from "../../../tools/data/Color";
 import { ViewProperty } from "../../../tools/signals/ChainProperty";
 import { Game } from "../../base/Game";
-import { consts } from "../../consts/Colors";
 import { ViewCollection } from "../ViewCollection";
 
 
