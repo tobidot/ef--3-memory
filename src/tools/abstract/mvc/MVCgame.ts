@@ -16,9 +16,9 @@ import { is_view_interface, View, ViewInterface } from "./View";
     >
  */
 export class MVCGame {
-    public active_view: ViewInterface | null = null;
-    public active_controller: EventControllerInterface | null = null;
-    public event_queue: Array<ControllerEvent> = [];
+    protected active_view: ViewInterface | null = null;
+    protected active_controller: EventControllerInterface | null = null;
+    protected event_queue: Array<ControllerEvent> = [];
     public ingame_time_in_seconds = 0;
 
     constructor() {

@@ -1,3 +1,3 @@
-export interface Collection<TYPE> {
-    [name: string]: TYPE | Collection<TYPE>;
+export interface CollectionTree<TYPE> {
+    [name: string]: TYPE | CollectionTree<TYPE>;
 }

@@ -1,45 +1,28 @@
-import { create_controllers } from "../controllers/ControllerCollection";
-import { create_views } from "../views/ViewCollection";
-import { MVCGame } from "../../tools/abstract/mvc/MVCgame";
-import { GameGlobal } from "./GameGlobal";
-import { create_models } from "../models/ModelCollection";
+import { ControllerCollection, create_controllers } from "../controllers/ControllerCollection";
+import { create_views, ViewCollection } from "../views/ViewCollection";
+import { create_models, ModelCollection } from "../models/ModelCollection";
+import { ControllerRouteResponse } from "../../tools/abstract/mvc/ControllerRouteResponse";
+import { MvcCanvasGame } from "../../tools/abstract/mvc/MvcCanvasGame";
 
-export class Game extends MVCGame {
-    public references: GameGlobal;
-
-    constructor() {
-        super();
-        const canvas = document.getElementById('canvas');
-        if (!(canvas instanceof HTMLCanvasElement)) throw new Error("Canvas not found");
-        const models = create_models(this);
-        const views = create_views(canvas);
-        const controllers = create_controllers(models, views);
-        this.references = {
-            ingame_time_in_seconds: 0,
-            models,
-            controllers,
-            views,
-        };
-        canvas.addEventListener("keydown", (event) => {
-            if (!this.active_controller) return;
-            if (this.active_controller.key_pressed) {
-                this.apply_controller_response(this.active_controller.key_pressed(event));
-            }
-        });
-        canvas.addEventListener("click", (event) => {
-            if (!this.active_controller) return;
-            if (this.active_controller.mouse_pressed) {
-                const x = (event.x - canvas.offsetLeft) * canvas.width / canvas.clientWidth;
-                const y = (event.y - canvas.offsetTop) * canvas.height / canvas.clientHeight;
-                const response = this.active_controller.mouse_pressed(event, x, y);
-                this.apply_controller_response(response);
-            }
-        });
-        this.apply_controller_response(controllers.game_controller.new_game());
-    }
+export class Game extends MvcCanvasGame<ModelCollection, ViewCollection, ControllerCollection> {
 
     public update(delta_seconds: number) {
-        this.references.ingame_time_in_seconds += delta_seconds;
         super.update(delta_seconds);
+    }
+
+    protected start(): ControllerRouteResponse {
+        return this.controllers.game_controller.new_game();
+    }
+
+    protected create_models(): ModelCollection {
+        return create_models();
+    }
+
+    protected create_views(canvas: HTMLCanvasElement): ViewCollection {
+        return create_views(canvas);
+    }
+
+    protected create_controllers(models: ModelCollection, views: ViewCollection): ControllerCollection {
+        return create_controllers(models, views);
     }
 }

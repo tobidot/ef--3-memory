@@ -6,7 +6,7 @@ export interface ModelCollection extends ModelCollectionBase {
     game: GameModel,
 }
 
-export function create_models(game: Game): ModelCollection {
+export function create_models(): ModelCollection {
     return {
         game: new GameModel(),
     }

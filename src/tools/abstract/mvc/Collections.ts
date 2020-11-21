@@ -1,8 +1,8 @@
 import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/ModelViewComposer";
-import { Collection } from "../../trees/Collection";
-import { Controller, ControllerInterface } from "./Controller";
-import { View, ViewInterface } from "./View";
+import { CollectionTree } from "../../trees/Collection";
+import { ControllerInterface } from "./Controller";
+import { ViewInterface } from "./View";
 
-export interface ModelCollectionBase extends Collection<Model> { }
-export interface ViewCollectionBase extends Collection<ViewInterface> { }
-export interface ControllerCollectionBase extends Collection<ControllerInterface> { }
+export interface ModelCollectionBase extends CollectionTree<Model> { }
+export interface ViewCollectionBase extends CollectionTree<ViewInterface> { }
+export interface ControllerCollectionBase extends CollectionTree<ControllerInterface> { }

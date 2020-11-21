@@ -1,5 +1,4 @@
 import { Model } from "../../tools/abstract/mvc/Model";
-import { Game } from "../base/Game";
 import { FieldModel } from "./FieldModel";
 import { ModelCollection } from "./ModelCollection";
 
