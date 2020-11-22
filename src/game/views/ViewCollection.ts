@@ -1,6 +1,4 @@
-import { ViewCollectionBase } from "../../tools/abstract/mvc/Collections";
-import { View } from "../../tools/abstract/mvc/View";
-import { Game } from "../base/Game";
+import { ViewCollectionBase } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Collections";
 import { InfoView } from "./main/InfoView";
 import { MainView } from "./main/MainView";
 

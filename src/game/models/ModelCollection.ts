@@ -1,5 +1,4 @@
-import { ModelCollectionBase } from "../../tools/abstract/mvc/Collections";
-import { Game } from "../base/Game";
+import { ModelCollectionBase } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Collections";
 import { GameModel } from "./GameModel";
 
 export interface ModelCollection extends ModelCollectionBase {

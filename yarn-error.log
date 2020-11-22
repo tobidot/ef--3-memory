@@ -1,5 +1,5 @@
 Arguments: 
-  D:\Program Files\nodejs\node.exe C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @types/semantic-ui-react
+  D:\Program Files\nodejs\node.exe C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
 
 PATH: 
   C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Program Files\Git\cmd;D:\Program Files\LLVM\bin;D:\Program Files\dotnet\;D:\Program Files\FPC\3.0.4\bin\i386-Win32;D:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;D:\Program Files (x86)\ELM\0.19.1\bin;C:\Users\Objec\AppData\Local\Microsoft\WindowsApps;;D:\Users\Objec\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Objec\AppData\Roaming\npm
@@ -14,17 +14,12 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fsemantic-ui-react: Not found
-      at Request.params.callback [as _callback] (C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66988:18)
-      at Request.self.callback (C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140662:22)
-      at Request.emit (events.js:210:5)
-      at Request.<anonymous> (C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141634:10)
-      at Request.emit (events.js:210:5)
-      at IncomingMessage.<anonymous> (C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141556:12)
-      at Object.onceWrapper (events.js:299:28)
-      at IncomingMessage.emit (events.js:215:7)
-      at endReadableNT (_stream_readable.js:1184:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  SyntaxError: F:\projects\programming\competitions\jams\game_off_2020__moonshot\package.json: Unexpected token } in JSON at position 541
+      at JSON.parse (<anonymous>)
+      at C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\Objec\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
@@ -42,21 +37,16 @@ npm manifest:
       "release": "npm run clean && npm run build"
     },
     "dependencies": {
-      "@game.object/ts-game-toolbox": "2.0.3",
+      "@game.object/ts-game-toolbox": "2.3.0",
+    },
+    "devDependencies": {
       "@types/p5": "^0.9.1",
       "@types/parcel-env": "^0.0.0",
       "@types/react": "^16.9.46",
       "@types/react-dom": "^16.9.8",
       "@types/semantic-ui": "^2.2.7",
-      "p5": "^1.1.9",
       "parcel": "^1.12.4",
-      "react": "^16.13.1",
-      "react-dom": "^16.13.1",
-      "semantic-ui-css": "^2.4.1",
-      "semantic-ui-react": "^1.2.1"
-    },
-    "devDependencies": {
-      "typescript": "^4.0.2"
+      "typescript": "^4.0.3"
     }
   }
 
@@ -958,10 +948,10 @@ Lockfile:
       "@babel/runtime" "^7.10.4"
       react-is "^16.6.3"
   
-  "@game.object/ts-game-toolbox@2.0.3":
-    version "2.0.3"
-    resolved "https://registry.yarnpkg.com/@game.object/ts-game-toolbox/-/ts-game-toolbox-2.0.3.tgz#5dfcc37cce1688003ee273355d1d479cad32f073"
-    integrity sha512-RGyW2JZq9fGaNZ+Xpib33VnrtBXA5idwFxfP2jd/dcBvPFZ8mKmkfUuhtpD/oWHTr2ixgpqTfRBpnMTh0MwK0g==
+  "@game.object/ts-game-toolbox@2.3.0":
+    version "2.3.0"
+    resolved "https://registry.yarnpkg.com/@game.object/ts-game-toolbox/-/ts-game-toolbox-2.3.0.tgz#28cb4ce551db031e1696f735c8a8643ae4541481"
+    integrity sha512-YmLkKZbZ6RgXy75qgzW8kVmWLX0054nyUwojFGnygzwTqm27jiYir+bBgv43PCUcEHv9LaMz916L6FPfGuFNTQ==
     dependencies:
       p5 "^1.1.9"
       react "^16.13.1"
@@ -5350,10 +5340,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
     integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
   
-  typescript@^4.0.2:
-    version "4.0.2"
-    resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.2.tgz#7ea7c88777c723c681e33bf7988be5d008d05ac2"
-    integrity sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==
+  typescript@^4.0.3:
+    version "4.0.3"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
+    integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
   
   uncss@^0.17.3:
     version "0.17.3"

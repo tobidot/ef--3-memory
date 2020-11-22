@@ -13,12 +13,7 @@
     "release": "npm run clean && npm run build"
   },
   "dependencies": {
-    "@game.object/ts-game-toolbox": "2.2.2",
-    "p5": "^1.1.9",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^1.2.1"
+    "@game.object/ts-game-toolbox": "2.3.2"
   },
   "devDependencies": {
     "@types/p5": "^0.9.1",

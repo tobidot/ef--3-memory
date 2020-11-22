@@ -1,6 +1,6 @@
 
-import { EventControllerInterface } from "../../tools/abstract/mvc/Controller";
-import { ControllerRouteResponse, ControllerRouteResponseType } from "../../tools/abstract/mvc/ControllerRouteResponse";
+import { EventControllerInterface } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Controller";
+import { ControllerRouteResponse, ControllerRouteResponseType } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
 import { BaseController } from "./BaseController";
 
 export class GameController extends BaseController implements EventControllerInterface {

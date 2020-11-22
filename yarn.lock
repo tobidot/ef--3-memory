@@ -892,10 +892,10 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
-"@game.object/ts-game-toolbox@2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@game.object/ts-game-toolbox/-/ts-game-toolbox-2.2.2.tgz#0b3d6ed2603601a7dee121a073bc88a458f083f4"
-  integrity sha512-OxfY0bCGPzeuEbK3JbSjLPfliXdmQ8tV+ZENTBNnd4FTi18Ec2wAezAcWxQxqzcJjPgD3iahbOcf7OClO1eRAQ==
+"@game.object/ts-game-toolbox@2.3.2":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@game.object/ts-game-toolbox/-/ts-game-toolbox-2.3.2.tgz#483d93139ffc6fe8208555252d322a67a638a201"
+  integrity sha512-osEiZQDMpFSWSb9SCvflX4g5uEIDVB0ijChUUNN5nIWPfd/Rpyi3JV1AZEaXf2AzD7gXipoc63iKJR9ny+fQGQ==
   dependencies:
     p5 "^1.1.9"
     react "^16.13.1"

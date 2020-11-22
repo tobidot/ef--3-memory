@@ -1,16 +1,13 @@
-import { CanvasView } from "../../../tools/abstract/mvc/CanvasView";
-import { View } from "../../../tools/abstract/mvc/View";
-import { consts } from "../../../tools/commons/Colors";
-import { Color } from "../../../tools/data/Color";
-import { ViewProperty } from "../../../tools/signals/ChainProperty";
-import { Game } from "../../base/Game";
+import { tools } from "@game.object/ts-game-toolbox";
+import { CanvasView } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/CanvasView";
+import { RgbColor } from "@game.object/ts-game-toolbox/dist/src/data/RgbColor";
+import { ChainProperty } from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
 import { ViewCollection } from "../ViewCollection";
 
-
 export class MainView extends CanvasView<ViewCollection> {
-    public bg_color = new ViewProperty<this, Color>(this, consts.Colors.BLACK);
-    public fg_color = new ViewProperty<this, Color>(this, consts.Colors.WHITE);
-    public fields = new ViewProperty<this, Array<string>>(this, []);
+    public bg_color = new ChainProperty<this, RgbColor>(this, tools.commons.Colors.BLACK);
+    public fg_color = new ChainProperty<this, RgbColor>(this, tools.commons.Colors.WHITE);
+    public fields = new ChainProperty<this, Array<string>>(this, []);
 
     public draw(): void {
         this.reset_canvas_state();

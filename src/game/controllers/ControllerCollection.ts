@@ -1,9 +1,9 @@
-import { ControllerCollectionBase } from "../../tools/abstract/mvc/Collections";
 import { ModelCollection } from "../models/ModelCollection";
 import { ViewCollection } from "../views/ViewCollection";
 import { GameController } from "./GameController";
 import { InfoScreenEventController } from "./event_controllers/InfoScreenEventController";
 import { GameEventController } from "./event_controllers/GameEventController";
+import { ControllerCollectionBase } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Collections";
 
 export interface ControllerCollection extends ControllerCollectionBase {
     game_controller: GameController,
