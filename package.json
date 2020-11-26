@@ -10,7 +10,7 @@
     "test": "npx parcel ./test-src/index.html --out-dir ./test-dist/",
     "build": "npx parcel build ./src/index.html --public-url .",
     "clean": "rmdir /q 'dist'",
-    "release": "npm run clean && npm run build"
+    "release": "npm run clean; npm run build"
   },
   "dependencies": {
     "@game.object/ts-game-toolbox": "2.3.2"

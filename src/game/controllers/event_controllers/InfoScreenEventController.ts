@@ -6,13 +6,15 @@ export class InfoScreenEventController extends BaseController implements EventCo
 
     public key_pressed(event: KeyboardEvent): ControllerRouteResponse {
         if (event.key === "Enter") {
-            return null;
+            return {
+                controller: this.controllers.for_event.game_controller,
+                view: this.views.main,
+            };
         }
         return null;
     }
 
-    public update(dt: number): ControllerRouteResponse {
-        this.models.game.update(dt);
+    public update(delta_seconds: number): ControllerRouteResponse {
         return null;
     }
 }
