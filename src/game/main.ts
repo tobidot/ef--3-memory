@@ -20,8 +20,11 @@ function connect_container_to_game_screen(container: HTMLDivElement) {
 
 function start_game(): Game {
     let game: Game = new Game();
-    let animation_frame = (delta_ms: number) => {
+    let now = performance.now();
+    let animation_frame = (timestamp: number) => {
+        const delta_ms = 166; (timestamp - now);
         game.update(delta_ms / 1000);
+        now = timestamp;
         game.draw();
         requestAnimationFrame(animation_frame);
     }
