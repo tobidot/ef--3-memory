@@ -1,7 +1,7 @@
 import { BaseController } from "../BaseController";
 import { EventControllerInterface } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Controller";
 import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
-import { Vector2 } from "../../../tools/data/Vector2";
+import { InputAction } from "../../models/helpers/ActionTypes";
 
 
 export class GameEventController extends BaseController implements EventControllerInterface {
@@ -15,18 +15,23 @@ export class GameEventController extends BaseController implements EventControll
     }
 
     public key_down(event: KeyboardEvent): ControllerRouteResponse {
+        if (event.repeat) return null;
         switch (event.key) {
             case "ArrowLeft":
                 this.is_arrow_left_pressed = true;
+                this.models.game.input_player(InputAction.MOVE_LEFT);
                 break;
             case "ArrowRight":
                 this.is_arrow_right_pressed = true;
+                this.models.game.input_player(InputAction.MOVE_RIGHT);
                 break;
             case "ArrowUp":
                 this.is_arrow_up_pressed = true;
+                this.models.game.input_player(InputAction.MOVE_UP);
                 break;
             case "ArrowDown":
                 this.is_arrow_down_pressed = true;
+                this.models.game.input_player(InputAction.MOVE_DOWN);
                 break;
         }
 
@@ -34,18 +39,23 @@ export class GameEventController extends BaseController implements EventControll
     }
 
     public key_up(event: KeyboardEvent): ControllerRouteResponse {
+        if (event.repeat) return null;
         switch (event.key) {
             case "ArrowLeft":
                 this.is_arrow_left_pressed = false;
+                this.models.game.input_player(InputAction.STOP_MOVE_LEFT);
                 break;
             case "ArrowRight":
                 this.is_arrow_right_pressed = false;
+                this.models.game.input_player(InputAction.STOP_MOVE_RIGHT);
                 break;
             case "ArrowUp":
                 this.is_arrow_up_pressed = false;
+                this.models.game.input_player(InputAction.STOP_MOVE_UP);
                 break;
             case "ArrowDown":
                 this.is_arrow_down_pressed = false;
+                this.models.game.input_player(InputAction.STOP_MOVE_DOWN);
                 break;
         }
         return null;
@@ -69,17 +79,17 @@ export class GameEventController extends BaseController implements EventControll
     }
 
     public update_inputs(delta_seconds: number) {
-        if (this.is_arrow_left_pressed) {
-            this.models.game.players[0].self_accelerate(Vector2.LEFT, delta_seconds);
-        }
-        if (this.is_arrow_right_pressed) {
-            this.models.game.players[0].self_accelerate(Vector2.RIGHT, delta_seconds);
-        }
-        if (this.is_arrow_up_pressed) {
-            this.models.game.players[0].self_accelerate(Vector2.UP, delta_seconds);
-        }
-        if (this.is_arrow_down_pressed) {
-            this.models.game.players[0].self_accelerate(Vector2.DOWN, delta_seconds);
-        }
+        // if (this.is_arrow_left_pressed) {
+        //     this.models.game.players[0].ord(Vector2.LEFT, delta_seconds);
+        // }
+        // if (this.is_arrow_right_pressed) {
+        //     this.models.game.players[0].self_accelerate(Vector2.RIGHT, delta_seconds);
+        // }
+        // if (this.is_arrow_up_pressed) {
+        //     this.models.game.players[0].self_accelerate(Vector2.UP, delta_seconds);
+        // }
+        // if (this.is_arrow_down_pressed) {
+        //     this.models.game.players[0].self_accelerate(Vector2.DOWN, delta_seconds);
+        // }
     }
 }

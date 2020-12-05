@@ -2,6 +2,11 @@ import { RADIANS, Vector } from "p5";
 
 type radians = number;
 type degrees = number;
+
+export interface Vector2I {
+    x: number;
+    y: number;
+}
 export class Vector2 {
     public static RIGHT = new Vector2(1, 0);
     public static LEFT = new Vector2(-1, 0);
@@ -11,24 +16,31 @@ export class Vector2 {
     public x: number;
     public y: number;
 
-    public constructor(x: number = 0, y: number = 0) {
-        this.x = x;
-        this.y = y;
+    public constructor(vec: Readonly<Vector2I>)
+    public constructor(x?: number, y?: number)
+    public constructor(x: number | Readonly<Vector2I> = 0, y: number = 0) {
+        if (typeof x === "object") {
+            this.x = x.x;
+            this.y = x.y;
+        } else {
+            this.x = x;
+            this.y = y;
+        }
     }
 
-    public set(other: Vector2): this {
+    public set(other: Vector2I): this {
         this.x = other.x;
         this.y = other.y;
         return this;
     }
 
-    public sub(other: Vector2): this {
+    public sub(other: Vector2I): this {
         this.x -= other.x;
         this.y -= other.y;
         return this;
     }
 
-    public add(other: Vector2): this {
+    public add(other: Vector2I): this {
         this.x += other.x;
         this.y += other.y;
         return this;
@@ -61,11 +73,11 @@ export class Vector2 {
         return this;
     }
 
-    public dot(other: Vector2): number {
+    public dot(other: Vector2I): number {
         return this.x * other.x + this.y * other.y;
     }
 
-    public cross(other: Vector2): Vector2 {
+    public cross(other: Vector2I): Vector2 {
         return new Vector2(this.x * other.y, this.y * other.x);
     }
 
@@ -81,7 +93,7 @@ export class Vector2 {
         return this;
     }
 
-    public get_projection_of(other: Vector2): Vector2 {
+    public get_projection_of(other: Vector2I): Vector2 {
         const len = this.dot(other) / this.len2();
         return this.cpy().mul(len);
     }

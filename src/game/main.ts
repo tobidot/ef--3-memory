@@ -22,7 +22,7 @@ function start_game(): Game {
     let game: Game = new Game();
     let now = performance.now();
     let animation_frame = (timestamp: number) => {
-        const delta_ms = 166; (timestamp - now);
+        const delta_ms = 16; (timestamp - now);
         game.update(delta_ms / 1000);
         now = timestamp;
         game.draw();
