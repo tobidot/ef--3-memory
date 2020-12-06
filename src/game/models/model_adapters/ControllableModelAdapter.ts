@@ -1,4 +1,4 @@
-import { InputChain } from "../helpers/input/ChainActionModel";
+import { InputChain } from "../helpers/input/InputChain";
 import { UserInput } from "../helpers/ActionTypes";
 import { PlayerActionScript } from "../helpers/movement_scripts/PlayerActionScript";
 import { PhysicsModelAdapter } from "./PhysicsModelAdapter";

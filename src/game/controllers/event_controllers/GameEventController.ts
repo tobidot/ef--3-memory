@@ -65,13 +65,12 @@ export class GameEventController extends BaseController implements EventControll
         this.update_inputs(delta_seconds);
 
         this.models.game.update(delta_seconds);
-        this.models.camera.update(this.models.game.physics, delta_seconds);
+        this.models.camera.update(this.models.physics, delta_seconds);
 
-        this.views.main.planets.set([
-            this.models.game.planet,
-            this.models.game.moon,
-        ]).players.set(
-            this.models.game.players
+        this.views.main.planets.set(
+            this.models.planets.all()
+        ).players.set(
+            this.models.objects.all()
         ).camera.set({
             area: this.models.camera.area,
         });

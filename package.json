@@ -13,7 +13,7 @@
     "release": "npm run clean; npm run build"
   },
   "dependencies": {
-    "@game.object/ts-game-toolbox": "2.3.2"
+    "@game.object/ts-game-toolbox": "^2.3.8"
   },
   "devDependencies": {
     "@types/p5": "^0.9.1",

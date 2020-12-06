@@ -2,21 +2,18 @@
 import { EventControllerInterface } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Controller";
 import { ControllerRouteResponse, ControllerRouteResponseType } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
 import { PlanetModel } from "../models/PlanetModel";
-import { PlayerModel } from "../models/PlayerModel";
+import { ObjectModel } from "../models/ObjectModel";
 import { BaseController } from "./BaseController";
 
 export class GameController extends BaseController implements EventControllerInterface {
 
     public new_game(): ControllerRouteResponse {
-        this.models.game.reset();
-        this.models.objects = [
-            new PlayerModel(),
-            new PlayerModel(),
-        ];
-        this.models.planets = [
-            new PlanetModel(),
-            new PlanetModel(),
-        ];
+        const planet = PlanetModel.create_planet(this.models.planets);
+        const moon = PlanetModel.create_moon(this.models.planets);
+
+        ObjectModel.create_player(this.models.objects, planet);
+        ObjectModel.create_enemy(this.models.objects, planet);
+
         const response: ControllerRouteResponseType = {
             view: this.views.info.text.set([
                 'This is a fighting game, ',
