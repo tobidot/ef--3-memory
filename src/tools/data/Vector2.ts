@@ -28,9 +28,16 @@ export class Vector2 {
         }
     }
 
-    public set(other: Vector2I): this {
-        this.x = other.x;
-        this.y = other.y;
+    public set(vec: Readonly<Vector2I>): this
+    public set(x: number, y: number): this
+    public set(x: number | Readonly<Vector2I>, y: number = 0): this {
+        if (typeof x === "object") {
+            this.x = x.x;
+            this.y = x.y;
+        } else {
+            this.x = x;
+            this.y = y;
+        }
         return this;
     }
 

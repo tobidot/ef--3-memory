@@ -1,4 +1,5 @@
 import { Rect } from "../../tools/data/Rect";
+import { PhysicsModelAdapter } from "./model_adapters/PhysicsModelAdapter";
 import { PlanetModel } from "./PlanetModel";
 import { PlayerModel } from "./PlayerModel";
 

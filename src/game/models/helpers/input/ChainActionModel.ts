@@ -1,9 +1,9 @@
-import { Action, InputAction } from "./helpers/ActionTypes";
+import { UserInput as UserInput } from "../ActionTypes";
 
 
 
-export class ActionChain {
-    public actions: Array<InputAction> = [];
+export class InputChain {
+    public actions: Array<UserInput> = [];
     public seconds_since_last_action: number = 0;
 
     public update(delta_seconds: number) {
@@ -13,7 +13,7 @@ export class ActionChain {
         }
     }
 
-    public add(action: InputAction) {
+    public add(action: UserInput) {
         this.seconds_since_last_action = 0;
         this.actions.push(action);
     }
@@ -23,7 +23,7 @@ export class ActionChain {
         this.actions = [];
     }
 
-    public is_combo(...actions: Array<InputAction>): boolean {
+    public is_combo(...actions: Array<UserInput>): boolean {
         if (actions.length > this.actions.length) return false;
         const index_offset = this.actions.length - actions.length;
         return actions.map((action, index): boolean => {

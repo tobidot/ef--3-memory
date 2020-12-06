@@ -1,6 +1,6 @@
 
 
-export enum InputAction {
+export enum UserInput {
     MOVE_LEFT,
     STOP_MOVE_LEFT,
     MOVE_RIGHT,
@@ -9,6 +9,10 @@ export enum InputAction {
     STOP_MOVE_UP,
     MOVE_DOWN,
     STOP_MOVE_DOWN,
+    ATTACK_WEAK,
+    ATTACK_MEDIUM,
+    ATTACK_STRONG,
+    ATTACK_SPECIAL,
 }
 
 export enum Action {
@@ -24,7 +28,6 @@ export enum Action {
     MOVE_LEFT,
     MOVE_RIGHT,
 }
-
 
 export function is_movement_action(action: Action): boolean {
     switch (action) {
