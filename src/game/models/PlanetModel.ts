@@ -26,7 +26,7 @@ export class PlanetModel extends Model<ModelCollection> {
         const planet = table.insert_new();
         planet.position = Vector2.from_angle(Math.random() * Math.PI * 2, 300 + Math.random() * 300);
         planet.radius = 50 + Math.random() * 40;
-        planet.gravity = 0.2 + Math.random() * 0.2;
+        planet.gravity = 0.1 + Math.random() * 0.1;
         return planet;
     }
 }

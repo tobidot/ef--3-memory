@@ -1,6 +1,6 @@
 import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
 import { ObservableSocket } from "@game.object/ts-game-toolbox/dist/src/signals/ObservableSocket";
-import { UserInput } from "./helpers/ActionTypes";
+import { UserInput } from "./helpers/input/ActionTypes";
 import { ModelCollection } from "./ModelCollection";
 import { ObjectModel } from "./ObjectModel";
 import { PlanetModel } from "./PlanetModel";

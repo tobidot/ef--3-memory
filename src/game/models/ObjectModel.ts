@@ -1,7 +1,7 @@
 import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
 import { Vector2 } from "../../tools/data/Vector2";
 import { InputChain } from "./helpers/input/InputChain";
-import { UserInput } from "./helpers/ActionTypes";
+import { UserInput } from "./helpers/input/ActionTypes";
 import { JumpScript } from "./helpers/movement_scripts/JumpScript";
 import { PlayerActionScript } from "./helpers/movement_scripts/PlayerActionScript";
 import { StepLeftScript } from "./helpers/movement_scripts/StepLeftScript";
@@ -11,6 +11,7 @@ import { ActionCombo, ControllableModelAdapter, ControllableModelInterface, Pers
 import { PhysicsModelAdapter, PhysicsModelInterface } from "./model_adapters/PhysicsModelAdapter";
 import { ModelTable } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ModelTable";
 import { PlanetModel } from "./PlanetModel";
+import { InputDirectionControl } from "./helpers/input/InputDirectionControl";
 
 
 export class ObjectModel extends Model<ModelCollection>
@@ -30,7 +31,7 @@ export class ObjectModel extends Model<ModelCollection>
     // input
     public action_script: PlayerActionScript | null = null;
     public input_chain: InputChain = new InputChain;
-    public persistent_acceleration: PersistantAcceleration = { x: 0, y: 0 };
+    public input_direction_control: InputDirectionControl = new InputDirectionControl;
     public registered_combos: ActionCombo[] = [];
 
     // adapters
@@ -39,9 +40,26 @@ export class ObjectModel extends Model<ModelCollection>
 
     constructor(collection: ModelCollection) {
         super(collection);
-        this.controllable.register_combo(StepLeftScript, UserInput.MOVE_LEFT, UserInput.STOP_MOVE_LEFT);
-        this.controllable.register_combo(StepRightScript, UserInput.MOVE_RIGHT, UserInput.STOP_MOVE_RIGHT);
-        this.controllable.register_combo(JumpScript, UserInput.MOVE_UP, UserInput.STOP_MOVE_UP);
+
+        const is_grounded = () => this.is_grounded;
+        this.controllable.register_combo(
+            StepLeftScript,
+            is_grounded,
+            UserInput.MOVE_LEFT,
+            UserInput.STOP_MOVE_LEFT
+        );
+        this.controllable.register_combo(
+            StepRightScript,
+            is_grounded,
+            UserInput.MOVE_RIGHT,
+            UserInput.STOP_MOVE_RIGHT
+        );
+        // this.controllable.register_combo(
+        //     JumpScript,
+        //     is_grounded,
+        //     UserInput.MOVE_UP,
+        //     UserInput.STOP_MOVE_UP,
+        // );
     }
 
     public update(delta_seconds: number) {

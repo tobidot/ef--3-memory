@@ -1,7 +1,7 @@
 import { BaseController } from "../BaseController";
 import { EventControllerInterface } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Controller";
 import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
-import { UserInput } from "../../models/helpers/ActionTypes";
+import { UserInput } from "../../models/helpers/input/ActionTypes";
 
 
 export class GameEventController extends BaseController implements EventControllerInterface {

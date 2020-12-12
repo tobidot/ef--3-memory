@@ -36,11 +36,7 @@ export class PhysicsModelAdapter {
     }
 
     public update(delta_seconds: number) {
-        if (this.object.is_grounded && this.object.velocity.len2() < 5) {
-            this.object.velocity.set({ x: 0, y: 0 });
-        }
         this.object.position.x += this.object.velocity.x * delta_seconds;
         this.object.position.y += this.object.velocity.y * delta_seconds;
-        this.object.velocity.mul(this.object.is_grounded ? 0.999 : 0.7);
     }
 }

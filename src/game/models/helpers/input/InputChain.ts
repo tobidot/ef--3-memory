@@ -1,4 +1,4 @@
-import { UserInput as UserInput } from "../ActionTypes";
+import { UserInput as UserInput } from "./ActionTypes";
 
 
 
@@ -13,7 +13,7 @@ export class InputChain {
         }
     }
 
-    public add(action: UserInput) {
+    public input(action: UserInput) {
         this.seconds_since_last_action = 0;
         this.actions.push(action);
     }

@@ -5,7 +5,7 @@ import { PlayerActionScript } from "./PlayerActionScript"
 export class JumpScript extends PlayerActionScript {
     protected progress: number = 0;
     protected behaviour: (delta_seconds: number) => void = this.jump.bind(this);
-    protected force: Vector2 = new Vector2(0, -1550);
+    protected force: Vector2 = new Vector2(0, -150);
 
     constructor(target: PhysicsModelAdapter) {
         super(target);

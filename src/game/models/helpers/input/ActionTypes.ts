@@ -9,6 +9,7 @@ export enum UserInput {
     STOP_MOVE_UP,
     MOVE_DOWN,
     STOP_MOVE_DOWN,
+
     ATTACK_WEAK,
     ATTACK_MEDIUM,
     ATTACK_STRONG,
