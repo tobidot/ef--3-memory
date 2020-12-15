@@ -12,27 +12,36 @@ import { PhysicsModelAdapter, PhysicsModelInterface } from "./model_adapters/Phy
 import { ModelTable } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ModelTable";
 import { PlanetModel } from "./PlanetModel";
 import { InputDirectionControl } from "./helpers/input/InputDirectionControl";
+import { PhysicRelation } from "./GamePhysicsModel";
+import { Rect } from "../../tools/data/Rect";
 
 
 export class ObjectModel extends Model<ModelCollection>
     implements
     PhysicsModelInterface,
     ControllableModelInterface {
+    // Configuration
+    public is_user_controlled: boolean = false;
     // States
     public position: Vector2 = new Vector2;
     public velocity: Vector2 = new Vector2;
     public rotation: number = 0;
     public is_grounded: boolean = false;
-    public is_user_controlled: boolean = false;
 
     // game_stats
     public energy: number = 2;
+    public collision_box: Rect = new Rect(-5, -5, 10, 10);
 
     // input
     public action_script: PlayerActionScript | null = null;
     public input_chain: InputChain = new InputChain;
     public input_direction_control: InputDirectionControl = new InputDirectionControl;
     public registered_combos: ActionCombo[] = [];
+
+    // physics caching
+    public collision_radius: number = 10;
+    public weight: number = 1;
+    public caching_physics_relation: WeakMap<ObjectModel, PhysicRelation> = new WeakMap;
 
     // adapters
     public physics: PhysicsModelAdapter = new PhysicsModelAdapter(this);
@@ -79,6 +88,13 @@ export class ObjectModel extends Model<ModelCollection>
         player.is_user_controlled = false;
         player.position = Vector2.from_angle(Math.random() * Math.PI, planet.radius + 10);
         return player;
+    }
+
+    public static create_ball(table: ModelTable<ModelCollection, ObjectModel>, planet: PlanetModel) {
+        const ball = table.insert_new();
+        ball.is_user_controlled = false;
+        ball.position = Vector2.from_angle(Math.random() * Math.PI, planet.radius + 10 + 200);
+        return ball;
     }
 
 

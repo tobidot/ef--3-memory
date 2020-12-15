@@ -13,6 +13,9 @@ export class GameController extends BaseController implements EventControllerInt
 
         ObjectModel.create_player(this.models.objects, planet);
         ObjectModel.create_enemy(this.models.objects, planet);
+        ObjectModel.create_ball(this.models.objects, planet);
+        ObjectModel.create_ball(this.models.objects, planet);
+        ObjectModel.create_ball(this.models.objects, planet);
 
         const response: ControllerRouteResponseType = {
             view: this.views.info.text.set([

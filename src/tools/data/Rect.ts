@@ -1,7 +1,11 @@
 import { Rect as RectBase } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect"
-import { Vector2 } from "./Vector2";
+import { Vector2, Vector2I } from "./Vector2";
 
 export class Rect extends RectBase {
+    public cpy(): Rect {
+        return new Rect(this.x, this.y, this.w, this.h);
+    }
+
     public set(x: number, y: number, w?: number, h?: number): this {
         this.x = x;
         this.y = y;
@@ -28,6 +32,12 @@ export class Rect extends RectBase {
         this.y = center.y;
     }
 
+    public set_center(center: Vector2I): this {
+        this.x = center.x;
+        this.y = center.y;
+        return this;
+    }
+
     public get width(): number {
         return this.w;
     }
@@ -37,7 +47,19 @@ export class Rect extends RectBase {
     }
 
     public get left(): number {
-        return this.x - this.w / 2;
+        return this.x;
+    }
+
+    public get top(): number {
+        return this.y;
+    }
+
+    public get right(): number {
+        return this.x + this.width;
+    }
+
+    public get bottom(): number {
+        return this.y + this.height;
     }
 
     public lerp(target: Rect, t: number): this {
@@ -47,5 +69,20 @@ export class Rect extends RectBase {
         this.w = this.w * it + target.w * t;
         this.h = this.h * it + target.h * t;
         return this;
+    }
+
+    /**
+     * left_top
+     * right_top
+     * right_bottom
+     * left_bottom
+     */
+    public get_corners(): [Vector2I, Vector2I, Vector2I, Vector2I] {
+        return [
+            { x: this.left, y: this.top },
+            { x: this.right, y: this.top },
+            { x: this.right, y: this.bottom },
+            { x: this.left, y: this.bottom },
+        ];
     }
 }

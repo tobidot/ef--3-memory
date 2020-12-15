@@ -4,6 +4,16 @@ import { ModelCollection } from "./ModelCollection";
 import { PhysicsModelAdapter } from "./model_adapters/PhysicsModelAdapter";
 import { PlanetModel } from "./PlanetModel";
 import { ObjectModel } from "./ObjectModel";
+import { Vector2, Vector2I } from "../../tools/data/Vector2";
+import { Vector } from "p5";
+import { PhysicCollisionHelper } from "./helpers/physics/PhysicsCollisionHelper";
+
+export interface PhysicRelation {
+    position_difference: Vector2I;
+    distance: number;
+    distance_squared: number;
+    overlapping_vector: Vector2I | null;
+}
 
 export class GamePhysicsModel extends Model<ModelCollection> {
     public readonly GRAVITY_CONSTANT = 10000000;
@@ -15,7 +25,6 @@ export class GamePhysicsModel extends Model<ModelCollection> {
         this.update_gravity_acceleration(delta_seconds);
         this.update_position(delta_seconds);
     }
-
 
     public prepare_update() {
         const obejcts = this.models.objects.all();
@@ -36,6 +45,7 @@ export class GamePhysicsModel extends Model<ModelCollection> {
     public update_objects_relations() {
         this.models.objects.map((player: ObjectModel) => {
             this.players_enclosing_rect.expand_to(player.position);
+            player.caching_physics_relation = PhysicCollisionHelper.get_all_relations(player, this.models.objects);
             return player;
         });
     }
@@ -63,6 +73,7 @@ export class GamePhysicsModel extends Model<ModelCollection> {
     public resolve_prepare(delta_seconds: number) {
         this.models.objects.map((object) => {
             object.is_grounded = false;
+
             return object;
         });
     }
@@ -84,5 +95,8 @@ export class GamePhysicsModel extends Model<ModelCollection> {
             });
             return object;
         });
+    }
+
+    public resolve_collision(a: ObjectModel, b: ObjectModel) {
     }
 }

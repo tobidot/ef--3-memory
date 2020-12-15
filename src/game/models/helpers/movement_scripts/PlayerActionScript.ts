@@ -1,4 +1,3 @@
-import { Vector2 } from "../../../../tools/data/Vector2";
 import { PhysicsModelAdapter } from "../../model_adapters/PhysicsModelAdapter";
 
 export class PlayerActionScript {

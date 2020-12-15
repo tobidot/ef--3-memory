@@ -1,9 +1,7 @@
-import { tools } from "@game.object/ts-game-toolbox";
 import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
 import { ModelTable } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ModelTable";
 import { Vector2 } from "../../tools/data/Vector2"
 import { ModelCollection } from "./ModelCollection";
-import { ObjectModel } from "./ObjectModel";
 
 
 export class PlanetModel extends Model<ModelCollection> {
