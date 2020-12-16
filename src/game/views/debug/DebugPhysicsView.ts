@@ -10,7 +10,7 @@ import { MainView } from "../main/MainView";
 import { ViewCollection } from "../ViewCollection";
 
 interface ViewPlayerAttr {
-    caching_physics_relation: WeakMap<ObjectModel, PhysicRelation>;
+    caching_physics_relation: WeakMap<ViewPlayerAttr, PhysicRelation>;
     position: Vector2;
     collision_box: Rect;
     rotation: number;
@@ -30,24 +30,54 @@ export class DebugPhysicsView extends MainView {
         this.apply_camera();
 
         this.context.strokeStyle = this.fg_color.get().to_hex();
+        this.context.fillStyle = this.fg_color.get().to_hex();
         this.planets.get().forEach((planet, index) => {
             this.context.beginPath();
             this.context.arc(planet.position.x, planet.position.y, planet.radius, 0, 2 * Math.PI);
             this.context.stroke();
         });
-        this.players.get().forEach((player, index) => {
+        this.players.get().forEach((object, index) => {
             const transform = this.context.getTransform();
-            this.context.translate(player.position.x, player.position.y);
-            this.context.rotate(player.rotation);
-            this.context.fillRect(
-                player.collision_box.x,
-                player.collision_box.y,
-                player.collision_box.width,
-                player.collision_box.height
+
+            this.context.translate(object.position.x, object.position.y);
+
+            this.context.strokeStyle = "#ff0000";
+            this.context.fillStyle = "#ff0000";
+            this.context.beginPath();
+            this.players.get().forEach((other_object, index) => {
+                // if (index !== 0) return;
+                if (other_object === object) return;
+                const relation = object.caching_physics_relation.get(other_object);
+                if (!relation) return;
+                if (relation.overlapping_vector === null) return;
+
+                this.context.moveTo(0, 0);
+                this.context.lineTo(
+                    relation.overlapping_vector.x,
+                    relation.overlapping_vector.y
+                );
+            });
+            this.context.stroke();
+
+            this.context.rotate(object.rotation);
+
+            this.context.strokeStyle = "#00ff00";
+            this.context.fillStyle = "#00ff00";
+            this.context.beginPath();
+            this.context.rect(
+                object.collision_box.x,
+                object.collision_box.y,
+                object.collision_box.width,
+                object.collision_box.height
             );
+            this.context.stroke();
+
+
             this.context.setTransform(transform);
         });
         this.context.resetTransform();
+
+
 
 
 
@@ -63,6 +93,8 @@ export class DebugPhysicsView extends MainView {
         }
 
         this.context.font = "16px monospace";
+        this.context.strokeStyle = "#ffffff";
+        this.context.fillStyle = "#ffffff";
         this.context.fillText(this.fps, 750, 20);
     }
 

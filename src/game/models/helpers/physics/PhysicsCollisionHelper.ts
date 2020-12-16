@@ -14,6 +14,7 @@ export class PhysicCollisionHelper {
     public static get_all_relations(object: ObjectModel, others: ModelTable<ModelCollection, ObjectModel>): WeakMap<ObjectModel, PhysicRelation> {
         let map = new WeakMap;
         others.map((other) => {
+            if (other === object) return other;
             map.set(other, PhysicCollisionHelper.get_relation(object, other));
             return other;
         })
@@ -24,7 +25,7 @@ export class PhysicCollisionHelper {
         const position_difference = other.position.cpy().sub(source.position);
         const distance_squared = position_difference.len2();
         const distance = Math.sqrt(distance_squared);
-        const overlapping_vector = PhysicCollisionHelper.get_overlaping_vector(source, other, distance);
+        const overlapping_vector = PhysicCollisionHelper.get_overlaping_vector(source, other, distance_squared);
         return {
             distance,
             distance_squared,
@@ -60,9 +61,9 @@ export class PhysicCollisionHelper {
             };
         });
         const minimum_overlaping_axis = all_overlaping_axis.reduce((minimum, next) => {
-            if (next.amount === null) return minimum;
-            if (minimum.amount === null) return next;
-            if (next.amount < minimum.amount) return next;
+            if (next.amount === null) return next;
+            if (minimum.amount === null) return minimum;
+            if (Math.abs(next.amount) < Math.abs(minimum.amount)) return next;
             return minimum;
         });
         if (minimum_overlaping_axis.amount === null) return null;
@@ -125,7 +126,7 @@ export class PhysicCollisionHelper {
      */
     public static get_overlap_of_ranges(source: ObjectToVectorPrjectionRange, other: ObjectToVectorPrjectionRange): number | null {
         if (source.min >= other.max || source.max <= other.min) return null;
-        const overlap_left = source.min - other.max;
+        const overlap_left = other.max - source.min;
         const overlap_right = other.min - source.max;
         if (Math.abs(overlap_left) < Math.abs(overlap_right)) return overlap_left;
         return overlap_right;

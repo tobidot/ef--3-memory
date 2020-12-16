@@ -26,6 +26,7 @@ export class GamePhysicsModel extends Model<ModelCollection> {
         this.update_position(delta_seconds);
     }
 
+
     public prepare_update() {
         const obejcts = this.models.objects.all();
         if (obejcts.length === 0) {
