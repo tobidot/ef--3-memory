@@ -88,6 +88,10 @@ export class Vector2 {
         return new Vector2(this.x * other.y, this.y * other.x);
     }
 
+    public get_unsigned(): Vector2 {
+        return new Vector2(Math.abs(this.x), Math.abs(this.y));
+    }
+
     public cpy(): Vector2 {
         return new Vector2(this.x, this.y);
     }

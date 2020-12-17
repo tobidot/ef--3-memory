@@ -68,6 +68,7 @@ export class GamePhysicsModel extends Model<ModelCollection> {
 
     public resolve(delta_seconds: number) {
         this.resolve_prepare(delta_seconds);
+        this.resolve_object_collisions(delta_seconds);
         this.resolve_planet_collisions(delta_seconds);
     }
 
@@ -77,6 +78,30 @@ export class GamePhysicsModel extends Model<ModelCollection> {
 
             return object;
         });
+    }
+
+    public resolve_object_collisions(delta_seconds: number) {
+        this.models.objects.map((object) => {
+            this.models.objects.map((other_object) => {
+                const relation = object.caching_physics_relation.get(other_object);
+                if (relation?.overlapping_vector) {
+                    const overlap = new Vector2(relation.overlapping_vector);
+                    const overlap_distance2 = overlap.len2();
+                    const force = overlap
+                        // .cross(overlap.get_unsigned())
+                        .mul(delta_seconds * 60);
+                    object.velocity.add(force);
+                    if (overlap_distance2 > object.collision_radius * object.collision_radius / 4) {
+                        const overlap_distance = Math.sqrt(overlap_distance2);
+                        const force_position_distance = overlap_distance - object.collision_radius / 2;
+                        object.position.add(overlap.set_magnitude(force_position_distance));
+                    }
+                }
+                return other_object;
+            });
+            return object;
+        });
+
     }
 
     public resolve_planet_collisions(delta_seconds: number) {

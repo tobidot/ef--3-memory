@@ -8,10 +8,14 @@ import { PlanetModel } from "./PlanetModel";
 export class GameModel extends Model<ModelCollection> {
 
     public update(delta_seconds: number) {
-        this.models.physics.update(delta_seconds);
-        this.update_objects(delta_seconds);
-        this.rotate_objects_to_planet();
-        this.models.physics.resolve(delta_seconds);
+        delta_seconds /= 10;
+        for (let i = 0; i < 10; ++i) {
+
+            this.models.physics.update(delta_seconds);
+            this.update_objects(delta_seconds);
+            this.rotate_objects_to_planet();
+            this.models.physics.resolve(delta_seconds);
+        }
     }
 
     public update_objects(delta_seconds: number) {
