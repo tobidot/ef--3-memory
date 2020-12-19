@@ -6,8 +6,14 @@ import { ObjectModel } from "./ObjectModel";
 import { PlanetModel } from "./PlanetModel";
 
 export class GameModel extends Model<ModelCollection> {
+    public cd: number = 2;
 
     public update(delta_seconds: number) {
+        this.cd -= delta_seconds;
+        if (this.cd < 0) {
+            this.cd = 0.5;
+            ObjectModel.create_enemy(this.models.objects, this.models.planets.all()[0]);
+        }
         delta_seconds /= 10;
         for (let i = 0; i < 10; ++i) {
 
@@ -16,6 +22,7 @@ export class GameModel extends Model<ModelCollection> {
             this.rotate_objects_to_planet();
             this.models.physics.resolve(delta_seconds);
         }
+
     }
 
     public update_objects(delta_seconds: number) {

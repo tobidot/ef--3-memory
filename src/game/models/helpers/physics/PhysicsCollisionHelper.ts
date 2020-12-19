@@ -11,6 +11,9 @@ interface ObjectToVectorPrjectionRange {
 };
 
 export class PhysicCollisionHelper {
+    public static buffer_rect_a: Rect = new Rect();
+    public static buffer_rect_b: Rect = new Rect();
+
     public static get_all_relations(object: ObjectModel, others: ModelTable<ModelCollection, ObjectModel>): WeakMap<ObjectModel, PhysicRelation> {
         let map = new WeakMap;
         others.map((other) => {
@@ -48,8 +51,8 @@ export class PhysicCollisionHelper {
             ...PhysicCollisionHelper.get_seperating_axis_from_rotated_rect(source.rotation),
             ...PhysicCollisionHelper.get_seperating_axis_from_rotated_rect(other.rotation),
         ];
-        const source_box = source.collision_box.cpy().set_center(source.position);
-        const other_box = source.collision_box.cpy().set_center(other.position);
+        const source_box = PhysicCollisionHelper.buffer_rect_a.set(source.collision_box).set_center(source.position);
+        const other_box = PhysicCollisionHelper.buffer_rect_b.set(source.collision_box).set_center(other.position);
         const all_overlaping_axis = all_axis.map((axis) => {
             return {
                 axis,

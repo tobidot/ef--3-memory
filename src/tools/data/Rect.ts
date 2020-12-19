@@ -1,16 +1,32 @@
 import { Rect as RectBase } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect"
 import { Vector2, Vector2I } from "./Vector2";
 
+
+interface RectI {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+}
 export class Rect extends RectBase {
     public cpy(): Rect {
         return new Rect(this.x, this.y, this.w, this.h);
     }
 
-    public set(x: number, y: number, w?: number, h?: number): this {
-        this.x = x;
-        this.y = y;
-        if (w !== undefined) this.w = w;
-        if (h !== undefined) this.h = h;
+    public set(x: RectI): this;
+    public set(x: number, y: number, w?: number, h?: number): this;
+    public set(x: number | RectI, y?: number, w?: number, h?: number): this {
+        if (typeof x === "object") {
+            this.x = x.x;
+            this.y = x.y;
+            this.w = x.w;
+            this.h = x.h;
+        } else {
+            this.x = x;
+            this.y = y as number;
+            if (w !== undefined) this.w = w;
+            if (h !== undefined) this.h = h;
+        }
         return this;
     }
 
