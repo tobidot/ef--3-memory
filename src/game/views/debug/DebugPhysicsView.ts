@@ -1,18 +1,15 @@
-import { tools } from "@game.object/ts-game-toolbox";
-import { CanvasView } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/CanvasView";
-import { RgbColor } from "@game.object/ts-game-toolbox/dist/src/data/RgbColor";
-import { ChainProperty } from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
-import { Rect } from "../../../tools/data/Rect";
-import { Vector2 } from "../../../tools/data/Vector2";
-import { PhysicRelation } from "../../models/GamePhysicsModel";
-import { ObjectModel } from "../../models/ObjectModel";
-import { MainView } from "../main/MainView";
-import { ViewCollection } from "../ViewCollection";
+import {ChainProperty} from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
+import {Rect} from "../../../tools/data/Rect";
+import {Vector2} from "../../../tools/data/Vector2";
+import {PhysicRelation} from "../../models/GamePhysicsModel";
+import {MainView} from "../main/MainView";
+import {ViewCollection} from "../ViewCollection";
 
 interface ViewPlayerAttr {
     caching_physics_relation: WeakMap<ViewPlayerAttr, PhysicRelation>;
     position: Vector2;
     collision_box: Rect;
+    collision_radius: number;
     rotation: number;
 }
 
@@ -70,15 +67,13 @@ export class DebugPhysicsView extends MainView {
                 object.collision_box.width,
                 object.collision_box.height
             );
+            this.context.ellipse(0, 0, object.collision_radius, object.collision_radius, 0, 0, Math.PI * 2);
             this.context.stroke();
 
 
             this.context.setTransform(transform);
         });
         this.context.resetTransform();
-
-
-
 
 
         const now = performance.now();

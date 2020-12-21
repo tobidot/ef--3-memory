@@ -14,6 +14,8 @@ import { PlanetModel } from "./PlanetModel";
 import { InputDirectionControl } from "./helpers/input/InputDirectionControl";
 import { PhysicRelation } from "./GamePhysicsModel";
 import { Rect } from "../../tools/data/Rect";
+import {Simulate} from "react-dom/test-utils";
+import play = Simulate.play;
 
 
 export class ObjectModel extends Model<ModelCollection>
@@ -22,6 +24,7 @@ export class ObjectModel extends Model<ModelCollection>
     ControllableModelInterface {
     // Configuration
     public is_user_controlled: boolean = false;
+    public is_active_entity: boolean = false;
     // States
     public position: Vector2 = new Vector2;
     public velocity: Vector2 = new Vector2;
@@ -31,6 +34,7 @@ export class ObjectModel extends Model<ModelCollection>
     // game_stats
     public energy: number = 2;
     public collision_box: Rect = new Rect(-5, -5, 10, 10);
+    public collision_radius: number = Math.sqrt( 25 + 25);
 
     // input
     public action_script: PlayerActionScript | null = null;
@@ -39,7 +43,6 @@ export class ObjectModel extends Model<ModelCollection>
     public registered_combos: ActionCombo[] = [];
 
     // physics caching
-    public collision_radius: number = 10;
     public weight: number = 1;
     public caching_physics_relation: WeakMap<ObjectModel, PhysicRelation> = new WeakMap;
 
@@ -49,7 +52,6 @@ export class ObjectModel extends Model<ModelCollection>
 
     constructor(collection: ModelCollection) {
         super(collection);
-
         const is_grounded = () => this.is_grounded;
         this.controllable.register_combo(
             StepLeftScript,
@@ -63,37 +65,38 @@ export class ObjectModel extends Model<ModelCollection>
             UserInput.MOVE_RIGHT,
             UserInput.STOP_MOVE_RIGHT
         );
-        // this.controllable.register_combo(
-        //     JumpScript,
-        //     is_grounded,
-        //     UserInput.MOVE_UP,
-        //     UserInput.STOP_MOVE_UP,
-        // );
     }
 
     public update(delta_seconds: number) {
-        this.controllable.update(delta_seconds);
+        if (this.is_active_entity) {
+            this.controllable.update(delta_seconds);
+        }
         this.energy += delta_seconds;
     }
 
     public static create_player(table: ModelTable<ModelCollection, ObjectModel>, planet: PlanetModel) {
         const player = table.insert_new();
         player.is_user_controlled = true;
-        player.position = Vector2.from_angle(Math.random() * Math.PI, planet.radius + 10);
+        player.is_active_entity = true;
+        player.position = Vector2.from_angle(Math.random() * Math.PI*2, planet.radius + 10);
         return player;
     }
 
     public static create_enemy(table: ModelTable<ModelCollection, ObjectModel>, planet: PlanetModel) {
         const player = table.insert_new();
         player.is_user_controlled = false;
-        player.position = Vector2.from_angle(Math.random() * Math.PI, planet.radius + 10);
+        player.is_active_entity = true;
+        player.position = Vector2.from_angle(Math.random() * Math.PI*2, planet.radius + 10);
         return player;
     }
 
     public static create_ball(table: ModelTable<ModelCollection, ObjectModel>, planet: PlanetModel) {
         const ball = table.insert_new();
         ball.is_user_controlled = false;
-        ball.position = Vector2.from_angle(Math.random() * Math.PI, planet.radius + 10 + 200);
+        ball.weight =  0.05;
+        ball.collision_box = new Rect(-2,-2,4,4);
+        ball.collision_radius = Math.sqrt(4 + 4);
+        ball.position = Vector2.from_angle(Math.random() * Math.PI *2, planet.radius + 10 + 200);
         return ball;
     }
 

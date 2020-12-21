@@ -9,7 +9,7 @@ export class GameModel extends Model<ModelCollection> {
     public cd: number = 2;
 
     public update(delta_seconds: number) {
-        this.cd -= delta_seconds;
+       // this.cd -= delta_seconds;
         if (this.cd < 0) {
             this.cd = 0.5;
             ObjectModel.create_enemy(this.models.objects, this.models.planets.all()[0]);

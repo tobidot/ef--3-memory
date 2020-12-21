@@ -1,12 +1,10 @@
-import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
-import { Rect } from "../../tools/data/Rect";
-import { ModelCollection } from "./ModelCollection";
-import { PhysicsModelAdapter } from "./model_adapters/PhysicsModelAdapter";
-import { PlanetModel } from "./PlanetModel";
-import { ObjectModel } from "./ObjectModel";
-import { Vector2, Vector2I } from "../../tools/data/Vector2";
-import { Vector } from "p5";
-import { PhysicCollisionHelper } from "./helpers/physics/PhysicsCollisionHelper";
+import {Model} from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
+import {Rect} from "../../tools/data/Rect";
+import {ModelCollection} from "./ModelCollection";
+import {PlanetModel} from "./PlanetModel";
+import {ObjectModel} from "./ObjectModel";
+import {Vector2, Vector2I} from "../../tools/data/Vector2";
+import {PhysicCollisionHelper} from "./helpers/physics/PhysicsCollisionHelper";
 
 export interface PhysicRelation {
     position_difference: Vector2I;
@@ -82,18 +80,22 @@ export class GamePhysicsModel extends Model<ModelCollection> {
 
     public resolve_object_collisions(delta_seconds: number) {
         this.models.objects.map((object) => {
+            if (object.weight < 0) return object;
             this.models.objects.map((other_object) => {
                 const relation = object.caching_physics_relation.get(other_object);
                 if (relation?.overlapping_vector) {
                     const overlap = new Vector2(relation.overlapping_vector);
                     const overlap_distance2 = overlap.len2();
+                    const weight_relation = Math.min( 8,Math.max(0.125, other_object.weight / object.weight));
                     const force = overlap
+                        .mul(weight_relation)
                         // .cross(overlap.get_unsigned())
                         .mul(delta_seconds * 60);
                     object.velocity.add(force);
-                    if (overlap_distance2 > object.collision_radius * object.collision_radius / 4) {
+                    const force_moving_distance = Math.min(object.collision_radius/2, other_object.collision_radius/2);
+                    if (overlap_distance2 > force_moving_distance * force_moving_distance) {
                         const overlap_distance = Math.sqrt(overlap_distance2);
-                        const force_position_distance = overlap_distance - object.collision_radius / 2;
+                        const force_position_distance = overlap_distance - force_moving_distance;
                         object.position.add(overlap.set_magnitude(force_position_distance));
                     }
                 }
@@ -109,8 +111,9 @@ export class GamePhysicsModel extends Model<ModelCollection> {
             this.models.planets.map((planet: PlanetModel) => {
                 const diff = planet.position.cpy().sub(object.position);
                 const distance2 = diff.cpy().len2();
-                if (distance2 < (planet.radius + 5) * (planet.radius + 5)) {
-                    const offset = diff.cpy().set_magnitude(planet.radius + 5).mul(-1);
+                const object_height = object.collision_box.get_bottom();
+                if (distance2 < (planet.radius + object_height) * (planet.radius + object_height)) {
+                    const offset = diff.cpy().set_magnitude(planet.radius + object_height).mul(-1);
                     const orthogonal_counterforce = Math.max(0, diff.dot(object.velocity) / diff.len2());
                     object.position.set(planet.position.cpy().add(offset));
                     object.velocity.add(diff.mul(-1).mul(orthogonal_counterforce));
@@ -123,6 +126,4 @@ export class GamePhysicsModel extends Model<ModelCollection> {
         });
     }
 
-    public resolve_collision(a: ObjectModel, b: ObjectModel) {
-    }
 }
