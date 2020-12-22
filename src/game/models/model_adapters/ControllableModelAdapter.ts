@@ -4,6 +4,7 @@ import { PlayerActionScript } from "../helpers/movement_scripts/PlayerActionScri
 import { PhysicsModelAdapter } from "./PhysicsModelAdapter";
 import { InputDirectionControl } from "../helpers/input/InputDirectionControl";
 import { ObjectModel } from "../ObjectModel";
+import {ModelCollection} from "../ModelCollection";
 
 export interface PersistantAcceleration {
     x: -1 | 0 | 1;
@@ -11,7 +12,7 @@ export interface PersistantAcceleration {
 }
 
 export interface PlayerActionScriptClass {
-    new(target: PhysicsModelAdapter): PlayerActionScript
+    new(target: ObjectModel, models: ModelCollection): PlayerActionScript
 }
 
 export interface ActionCombo {
@@ -38,7 +39,7 @@ export class ControllableModelAdapter {
     public readonly jump_force = -120;
     public readonly ground_velocity = 120;
 
-    public constructor(protected object: ControllableModelInterface) { }
+    public constructor(protected object: ObjectModel, protected models: ModelCollection) { }
 
     public update(delta_seconds: number) {
         this.object.input_chain.update(delta_seconds);
@@ -147,7 +148,7 @@ export class ControllableModelAdapter {
         }, null);
         if (selected_combo) {
             this.object.input_chain.clear();
-            this.object.action_script = new selected_combo.script_class(this.object.physics);
+            this.object.action_script = new selected_combo.script_class(this.object, this.models);
         }
     }
 }

@@ -1,20 +1,22 @@
-import { tools } from "@game.object/ts-game-toolbox";
-import { CanvasView } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/CanvasView";
-import { RgbColor } from "@game.object/ts-game-toolbox/dist/src/data/RgbColor";
-import { ChainProperty } from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
-import { Vector } from "p5";
-import { Rect } from "../../../tools/data/Rect";
-import { Vector2 } from "../../../tools/data/Vector2";
-import { ViewCollection } from "../ViewCollection";
+import {tools} from "@game.object/ts-game-toolbox";
+import {CanvasView} from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/CanvasView";
+import {RgbColor} from "@game.object/ts-game-toolbox/dist/src/data/RgbColor";
+import {ChainProperty} from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
+import {Rect} from "../../../tools/data/Rect";
+import {Vector2} from "../../../tools/data/Vector2";
+import {ViewCollection} from "../ViewCollection";
 
 interface ViewPlanetAttr {
     position: Vector2;
     radius: number;
 }
+
 interface ViewPlayerAttr {
     position: Vector2;
+    collision_box: Rect;
     rotation: number;
 }
+
 interface ViewCameraAttr {
     area: Rect;
 }
@@ -24,7 +26,7 @@ export class MainView extends CanvasView<ViewCollection> {
     public fg_color = new ChainProperty<this, RgbColor>(this, tools.commons.Colors.WHITE);
     public planets = new ChainProperty<this, Array<ViewPlanetAttr>>(this, []);
     public players = new ChainProperty<this, Array<ViewPlayerAttr>>(this, []);
-    public camera = new ChainProperty<this, ViewCameraAttr>(this, { area: new Rect() });
+    public camera = new ChainProperty<this, ViewCameraAttr>(this, {area: new Rect()});
 
     public timestamp = performance.now();
     public update_ts = 0;
@@ -45,11 +47,15 @@ export class MainView extends CanvasView<ViewCollection> {
             const transform = this.context.getTransform();
             this.context.translate(player.position.x, player.position.y);
             this.context.rotate(player.rotation);
-            this.context.fillRect(-10, - 10, 20, 20);
+            this.context.fillRect(
+                player.collision_box.x,
+                player.collision_box.y,
+                player.collision_box.w,
+                player.collision_box.h
+            );
             this.context.setTransform(transform);
         });
         this.context.resetTransform();
-
 
 
         const now = performance.now();

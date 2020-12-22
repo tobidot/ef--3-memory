@@ -14,7 +14,7 @@ export interface ViewCollection extends ViewCollectionBase {
 export function create_views(canvas: HTMLCanvasElement): ViewCollection {
     const collection: ViewCollection = {} as ViewCollection;
     const debug_physics = new DebugPhysicsView(canvas, collection);
-    const main = debug_physics; // new MainView(canvas, collection);
+    const main = new MainView(canvas, collection);
     const info = new InfoView(canvas, collection);
     return Object.assign(collection, {
         main,

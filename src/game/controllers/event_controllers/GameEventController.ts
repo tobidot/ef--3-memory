@@ -33,6 +33,18 @@ export class GameEventController extends BaseController implements EventControll
                 this.is_arrow_down_pressed = true;
                 this.models.game.input_player(UserInput.MOVE_DOWN);
                 break;
+            case "y":
+                this.models.game.input_player(UserInput.ATTACK_WEAK);
+                break;
+            case "x":
+                this.models.game.input_player(UserInput.ATTACK_MEDIUM);
+                break;
+            case "c":
+                this.models.game.input_player(UserInput.ATTACK_STRONG);
+                break;
+            case "v":
+                this.models.game.input_player(UserInput.ATTACK_SPECIAL);
+                break;
         }
 
         return null;

@@ -8,7 +8,7 @@ export class InfoScreenEventController extends BaseController implements EventCo
         if (event.key === "Enter") {
             return {
                 controller: this.controllers.for_event.game_controller,
-                view: this.views.debug_physics,
+                view: this.views.main,
             };
         }
         return null;

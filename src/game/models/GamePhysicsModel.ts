@@ -86,13 +86,13 @@ export class GamePhysicsModel extends Model<ModelCollection> {
                 if (relation?.overlapping_vector) {
                     const overlap = new Vector2(relation.overlapping_vector);
                     const overlap_distance2 = overlap.len2();
-                    const weight_relation = Math.min( 8,Math.max(0.125, other_object.weight / object.weight));
+                    const weight_relation = Math.min(8, Math.max(0.125, other_object.weight / object.weight));
                     const force = overlap
                         .mul(weight_relation)
                         // .cross(overlap.get_unsigned())
                         .mul(delta_seconds * 60);
                     object.velocity.add(force);
-                    const force_moving_distance = Math.min(object.collision_radius/2, other_object.collision_radius/2);
+                    const force_moving_distance = Math.min(object.collision_radius / 2, other_object.collision_radius / 2);
                     if (overlap_distance2 > force_moving_distance * force_moving_distance) {
                         const overlap_distance = Math.sqrt(overlap_distance2);
                         const force_position_distance = overlap_distance - force_moving_distance;
@@ -113,12 +113,16 @@ export class GamePhysicsModel extends Model<ModelCollection> {
                 const distance2 = diff.cpy().len2();
                 const object_height = object.collision_box.get_bottom();
                 if (distance2 < (planet.radius + object_height) * (planet.radius + object_height)) {
-                    const offset = diff.cpy().set_magnitude(planet.radius + object_height).mul(-1);
-                    const orthogonal_counterforce = Math.max(0, diff.dot(object.velocity) / diff.len2());
-                    object.position.set(planet.position.cpy().add(offset));
-                    object.velocity.add(diff.mul(-1).mul(orthogonal_counterforce));
-                    object.velocity.mul(Math.min(1, Math.max(0.5, 1 - orthogonal_counterforce)));
-                    object.is_grounded = true;
+                    if (planet.is_deadly) {
+                        object.is_dying = true;
+                    } else {
+                        const offset = diff.cpy().set_magnitude(planet.radius + object_height).mul(-1);
+                        const orthogonal_counterforce = Math.max(0, diff.dot(object.velocity) / diff.len2());
+                        object.position.set(planet.position.cpy().add(offset));
+                        object.velocity.add(diff.mul(-1).mul(orthogonal_counterforce));
+                        object.velocity.mul(Math.min(1, Math.max(0.5, 1 - orthogonal_counterforce)));
+                        object.is_grounded = true;
+                    }
                 }
                 return planet;
             });

@@ -1,16 +1,18 @@
 import { Vector2 } from "../../../../tools/data/Vector2";
 import { PhysicsModelAdapter } from "../../model_adapters/PhysicsModelAdapter";
 import { PlayerActionScript } from "./PlayerActionScript"
+import {ObjectModel} from "../../ObjectModel";
+import {ModelCollection} from "../../ModelCollection";
 
 export class JumpScript extends PlayerActionScript {
     protected progress: number = 0;
     protected behaviour: (delta_seconds: number) => void = this.jump.bind(this);
     protected force: Vector2 = new Vector2(0, -150);
 
-    constructor(target: PhysicsModelAdapter) {
-        super(target);
+    constructor(target: ObjectModel, models: ModelCollection) {
+        super(target, models);
         this.is_disabling_movement = false;
-        this.target.local_accelerate(this.force);
+        this.target.physics.local_accelerate(this.force);
     }
 
     public update(delta_seconds: number) {

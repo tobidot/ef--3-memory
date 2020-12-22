@@ -1,6 +1,7 @@
 import { Vector2, Vector2I } from "../../../tools/data/Vector2";
 
 export interface PhysicsModelInterface {
+    require_reset: boolean;
     position: Vector2;
     velocity: Vector2;
     rotation: number;
@@ -38,5 +39,8 @@ export class PhysicsModelAdapter {
     public update(delta_seconds: number) {
         this.object.position.x += this.object.velocity.x * delta_seconds;
         this.object.position.y += this.object.velocity.y * delta_seconds;
+        if (this.object.position.len2() > 1000000) {
+            this.object.require_reset = true;
+        }
     }
 }

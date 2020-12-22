@@ -41,7 +41,7 @@ export class PhysicCollisionHelper {
      *
      * @param source The fixed object
      * @param other The other object checking collision against
-     * @param distance2 The distance squared between positions that is already calculated
+     * @param distance2 The radial_distance squared between positions that is already calculated
      */
     public static get_overlaping_vector(source: ObjectModel, other: ObjectModel, distance2?: number): null | Vector2 {
         if (distance2 === undefined) distance2 = source.position.cpy().sub(other.position).len2();

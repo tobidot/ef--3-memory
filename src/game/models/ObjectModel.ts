@@ -16,6 +16,8 @@ import { PhysicRelation } from "./GamePhysicsModel";
 import { Rect } from "../../tools/data/Rect";
 import {Simulate} from "react-dom/test-utils";
 import play = Simulate.play;
+import {BasicPunchScript} from "./helpers/movement_scripts/BasicPunchScript";
+import {HeavyPunchScript} from "./helpers/movement_scripts/HeavyPunchScript";
 
 
 export class ObjectModel extends Model<ModelCollection>
@@ -32,6 +34,7 @@ export class ObjectModel extends Model<ModelCollection>
     public is_grounded: boolean = false;
 
     // game_stats
+    public is_dying: boolean = false;
     public energy: number = 2;
     public collision_box: Rect = new Rect(-5, -5, 10, 10);
     public collision_radius: number = Math.sqrt( 25 + 25);
@@ -45,13 +48,16 @@ export class ObjectModel extends Model<ModelCollection>
     // physics caching
     public weight: number = 1;
     public caching_physics_relation: WeakMap<ObjectModel, PhysicRelation> = new WeakMap;
+    public require_reset:boolean = false;
 
     // adapters
-    public physics: PhysicsModelAdapter = new PhysicsModelAdapter(this);
-    public controllable: ControllableModelAdapter = new ControllableModelAdapter(this);
+    public physics: PhysicsModelAdapter ;
+    public controllable: ControllableModelAdapter ;
 
     constructor(collection: ModelCollection) {
         super(collection);
+        this.physics =  new PhysicsModelAdapter(this);
+        this.controllable =  new ControllableModelAdapter(this, collection);
         const is_grounded = () => this.is_grounded;
         this.controllable.register_combo(
             StepLeftScript,
@@ -64,6 +70,16 @@ export class ObjectModel extends Model<ModelCollection>
             is_grounded,
             UserInput.MOVE_RIGHT,
             UserInput.STOP_MOVE_RIGHT
+        );
+        this.controllable.register_combo(
+            BasicPunchScript,
+            null,
+            UserInput.ATTACK_WEAK,
+        );
+        this.controllable.register_combo(
+            HeavyPunchScript,
+            null,
+            UserInput.ATTACK_MEDIUM,
         );
     }
 
@@ -93,7 +109,7 @@ export class ObjectModel extends Model<ModelCollection>
     public static create_ball(table: ModelTable<ModelCollection, ObjectModel>, planet: PlanetModel) {
         const ball = table.insert_new();
         ball.is_user_controlled = false;
-        ball.weight =  0.05;
+        ball.weight =  0.8;
         ball.collision_box = new Rect(-2,-2,4,4);
         ball.collision_radius = Math.sqrt(4 + 4);
         ball.position = Vector2.from_angle(Math.random() * Math.PI *2, planet.radius + 10 + 200);
