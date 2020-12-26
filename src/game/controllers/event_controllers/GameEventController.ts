@@ -1,7 +1,7 @@
-import { BaseController } from "../BaseController";
-import { EventControllerInterface } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Controller";
-import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
-import { UserInput } from "../../models/helpers/input/ActionTypes";
+import {BaseController} from "../BaseController";
+import {EventControllerInterface} from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Controller";
+import {ControllerRouteResponse} from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
+import {UserInput} from "../../models/helpers/input/ActionTypes";
 
 
 export class GameEventController extends BaseController implements EventControllerInterface {
@@ -79,13 +79,22 @@ export class GameEventController extends BaseController implements EventControll
         this.models.game.update(delta_seconds);
         this.models.camera.update(this.models.physics, delta_seconds);
 
+
         this.views.main.planets.set(
             this.models.planets.all()
         ).players.set(
             this.models.objects.all()
+        ).graphic_effects.set(
+            this.models.graphic_effects.all()
         ).camera.set({
             area: this.models.camera.area,
-        });
+        }).round_animation_progress.set(
+            this.models.game.round_timer
+        ).round.set(
+            this.models.game.round
+        ).enemies_remaining.set(
+            this.models.game.enemies_left
+        );
         return null;
     }
 

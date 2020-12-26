@@ -4,12 +4,18 @@ import { ControllerRouteResponse, ControllerRouteResponseType } from "@game.obje
 import { PlanetModel } from "../models/PlanetModel";
 import { ObjectModel } from "../models/ObjectModel";
 import { BaseController } from "./BaseController";
+import {ImageModel} from "../models/ImageModel";
 
 export class GameController extends BaseController implements EventControllerInterface {
 
     public new_game(): ControllerRouteResponse {
         const planet = PlanetModel.create_planet(this.models.planets);
         const moon = PlanetModel.create_moon(this.models.planets);
+
+        ImageModel.create_image(this.models.images, 'green-dot', 'green-dot');
+        ImageModel.create_image(this.models.images, 'red-dot', 'red-dot');
+        ImageModel.create_image(this.models.images, 'moon', 'moon');
+        ImageModel.create_image(this.models.images, 'planet', 'planet');
 
         ObjectModel.create_player(this.models.objects, planet);
         ObjectModel.create_enemy(this.models.objects, planet);

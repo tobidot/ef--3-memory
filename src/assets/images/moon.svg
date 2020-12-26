@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 200 200"
+>
+    <g mask="url(#moonMask)">
+        <circle cx="100" cy="100" r="100" fill="#999999"/>
+        <use xlink:href="#crater" x="10" y="80" />
+        <use xlink:href="#crater" x="90" y="20" transform="scale(1.3)"/>
+        <use xlink:href="#crater" x="25" y="160" />
+        <use xlink:href="#crater" x="65" y="150" />
+        <use xlink:href="#crater" x="90" y="120" />
+        <use xlink:href="#crater" x="150" y="50" transform="scale(1.3)"/>
+        <use xlink:href="#crater" x="110" y="100" transform="scale(1.5)"/>
+    </g>
+
+    <defs >
+        <mask id="moonMask">
+            <rect x="0" y="0" width="200" height="200" fill="black"/>
+            <circle cx="100" cy="100" r="100" fill="white" />
+        </mask>
+        <g id="crater">
+            <ellipse rx="17" ry="17" fill="#cccccc" />
+            <ellipse rx="15" ry="15" fill="#666666" />
+        </g>
+        <g id="smushed_crater">
+            <ellipse rx="17" ry="12" fill="#cccccc" />
+            <ellipse rx="15" ry="10" fill="#666666" />
+        </g>
+    </defs>
+</svg>

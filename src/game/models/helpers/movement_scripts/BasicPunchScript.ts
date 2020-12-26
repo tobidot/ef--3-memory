@@ -2,6 +2,7 @@ import {Vector2} from "../../../../tools/data/Vector2";
 import {PlayerActionScript} from "./PlayerActionScript"
 import {ModelCollection} from "../../ModelCollection";
 import {ObjectModel} from "../../ObjectModel";
+import {DamageInteractionHelper, EffectDefinition} from "../physics/DamageInteractionHelper";
 
 export class BasicPunchScript extends PlayerActionScript {
     protected progress: number = 0;
@@ -19,20 +20,12 @@ export class BasicPunchScript extends PlayerActionScript {
     }
 
     public push(delta_seconds: number) {
-        // this.target.object.velocity.mul(Math.pow(0.5, delta_seconds * 60));
-        const effect_radius = this.target.collision_radius + 25;
-        this.models.objects.map((object) => {
-            if (object === this.target) return object;
-            const relation = this.target.caching_physics_relation.get(object);
-            if (!relation) return object;
-            if ((relation.distance < object.collision_radius + effect_radius)) {
-                object.weight = Math.min(object.weight, object.weight * 0.95 + 0.01);
-                object.velocity.set(
-                    new Vector2(relation.position_difference).mul(50 / relation.distance).mul(1 / object.weight)
-                );
-            }
-            return object;
-        });
+        const effect_definition:EffectDefinition = {
+            base_damage: 25,
+            base_force: 15,
+            effect_radius: 80,
+        };
+        DamageInteractionHelper.apply_effects_to_objects_hit(this.target, effect_definition, this.models);
         this.is_finished = true;
     }
 }

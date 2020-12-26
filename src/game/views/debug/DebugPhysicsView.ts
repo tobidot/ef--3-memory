@@ -11,6 +11,8 @@ interface ViewPlayerAttr {
     collision_box: Rect;
     collision_radius: number;
     rotation: number;
+    image: HTMLImageElement;
+    damage: number;
 }
 
 export class DebugPhysicsView extends MainView {

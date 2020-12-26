@@ -1,5 +1,5 @@
-import { Rect as RectBase } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect"
-import { Vector2, Vector2I } from "./Vector2";
+import {Rect as RectBase} from "@game.object/ts-game-toolbox/dist/src/geometries/Rect"
+import {Vector2, Vector2I} from "./Vector2";
 
 
 interface RectI {
@@ -8,6 +8,7 @@ interface RectI {
     w: number;
     h: number;
 }
+
 export class Rect extends RectBase {
     public cpy(): Rect {
         return new Rect(this.x, this.y, this.w, this.h);
@@ -44,13 +45,13 @@ export class Rect extends RectBase {
     }
 
     public set center(center: Vector2) {
-        this.x = center.x;
-        this.y = center.y;
+        this.x = center.x - this.w / 2;
+        this.y = center.y - this.h / 2;
     }
 
     public set_center(center: Vector2I): this {
-        this.x = center.x;
-        this.y = center.y;
+        this.x = center.x - this.w / 2;
+        this.y = center.y - this.h / 2;
         return this;
     }
 
@@ -95,10 +96,10 @@ export class Rect extends RectBase {
      */
     public get_corners(): [Vector2I, Vector2I, Vector2I, Vector2I] {
         return [
-            { x: this.left, y: this.top },
-            { x: this.right, y: this.top },
-            { x: this.right, y: this.bottom },
-            { x: this.left, y: this.bottom },
+            {x: this.left, y: this.top},
+            {x: this.right, y: this.top},
+            {x: this.right, y: this.bottom},
+            {x: this.left, y: this.bottom},
         ];
     }
 }

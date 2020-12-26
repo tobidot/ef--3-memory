@@ -36,7 +36,7 @@ type Condition = () => boolean;
 export class ControllableModelAdapter {
     public readonly floating_velocity = 30;
     public readonly controlable_floating_velocity = 80;
-    public readonly jump_force = -120;
+    public readonly jump_force = -240;
     public readonly ground_velocity = 120;
 
     public constructor(protected object: ObjectModel, protected models: ModelCollection) { }

@@ -7,17 +7,48 @@ import { PlanetModel } from "./PlanetModel";
 import {Vector2} from "../../tools/data/Vector2";
 
 export class GameModel extends Model<ModelCollection> {
-    public cd: number = 2;
+    public round:number = 1;
+    public round_timer:number = 0;
+    public remaining_spawns: number = 1;
+    public current_time_to_spawn: number = 1;
+    public cooldown_to_spawn: number = 1;
+
+    public enemies_left:number = 0;
 
     public update(delta_seconds: number) {
+        this.round_timer+=delta_seconds;
+
         const moon = this.models.planets.all()[1];
         moon.radial_position += moon.radial_velocity * delta_seconds;
         moon.position.set(Vector2.from_angle(moon.radial_position, moon.radial_distance));
-       // this.cd -= delta_seconds;
-        if (this.cd < 0) {
-            this.cd = 0.5;
+
+        this.current_time_to_spawn -= delta_seconds;
+        if (this.current_time_to_spawn < 0 && this.remaining_spawns > 0) {
+            this.current_time_to_spawn = this.cooldown_to_spawn;
+            this.remaining_spawns--;
             ObjectModel.create_enemy(this.models.objects, this.models.planets.all()[0]);
         }
+        this.enemies_left = this.models.objects.all().filter((object)=>{
+            return object.is_enemy;
+        }).length;
+        if (this.enemies_left=== 0 && this.remaining_spawns === 0){
+            this.round++;
+            this.round_timer=0;
+            this.remaining_spawns = this.round;
+            this.current_time_to_spawn = this.cooldown_to_spawn;
+        }
+
+
+
+        const to_delete_effects = this.models.graphic_effects.all().filter((effect)=>{
+             effect.update(delta_seconds);
+             return effect.is_finished;
+        });
+        to_delete_effects.forEach((effect)=>{
+            this.models.graphic_effects.delete(effect);
+        });
+
+
         delta_seconds /= 10;
         for (let i = 0; i < 10; ++i) {
 

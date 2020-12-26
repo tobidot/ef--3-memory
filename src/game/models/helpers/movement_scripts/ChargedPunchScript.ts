@@ -5,10 +5,9 @@ import {ObjectModel} from "../../ObjectModel";
 import {GraphicEffectModel} from "../../GraphicEffectModel";
 import {DamageInteractionHelper, EffectDefinition} from "../physics/DamageInteractionHelper";
 
-export class HeavyPunchScript extends PlayerActionScript {
+export class ChargedPunchScript extends PlayerActionScript {
     protected progress: number = 0;
     protected behaviour: (delta_seconds: number) => void = this.push.bind(this);
-    protected force: Vector2 = new Vector2(0, -150);
 
     constructor(target: ObjectModel, models: ModelCollection) {
         super(target, models);
@@ -22,9 +21,9 @@ export class HeavyPunchScript extends PlayerActionScript {
 
     public push(delta_seconds: number) {
         const effect_definition:EffectDefinition = {
-            base_damage: 55,
-            base_force: 300,
-            effect_radius: 20,
+            base_damage: 35,
+            base_force: 525,
+            effect_radius: 50,
         };
         DamageInteractionHelper.apply_effects_to_objects_hit(this.target, effect_definition, this.models);
         this.is_finished = true;

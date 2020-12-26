@@ -14,6 +14,7 @@ export class StepDirectionScript extends PlayerActionScript {
         this.wanted_velocity = velocity;
         this.is_disabling_movement = false;
         this.is_interuptable_by_movement = true;
+        this.is_interuptable_by_action = true;
     }
 
     public update(delta_seconds: number) {

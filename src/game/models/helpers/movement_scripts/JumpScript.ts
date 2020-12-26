@@ -7,7 +7,7 @@ import {ModelCollection} from "../../ModelCollection";
 export class JumpScript extends PlayerActionScript {
     protected progress: number = 0;
     protected behaviour: (delta_seconds: number) => void = this.jump.bind(this);
-    protected force: Vector2 = new Vector2(0, -150);
+    protected force: Vector2 = new Vector2(0, -250);
 
     constructor(target: ObjectModel, models: ModelCollection) {
         super(target, models);

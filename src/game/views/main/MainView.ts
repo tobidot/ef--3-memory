@@ -6,15 +6,25 @@ import {Rect} from "../../../tools/data/Rect";
 import {Vector2} from "../../../tools/data/Vector2";
 import {ViewCollection} from "../ViewCollection";
 
+
 interface ViewPlanetAttr {
     position: Vector2;
     radius: number;
+    image: HTMLImageElement | null;
 }
 
 interface ViewPlayerAttr {
     position: Vector2;
     collision_box: Rect;
     rotation: number;
+    image: HTMLImageElement | null;
+    damage: number;
+}
+
+interface ViewGraphicEffectAttr {
+    fading_progress: number;
+    target: Rect;
+    image: HTMLImageElement | null;
 }
 
 interface ViewCameraAttr {
@@ -26,7 +36,12 @@ export class MainView extends CanvasView<ViewCollection> {
     public fg_color = new ChainProperty<this, RgbColor>(this, tools.commons.Colors.WHITE);
     public planets = new ChainProperty<this, Array<ViewPlanetAttr>>(this, []);
     public players = new ChainProperty<this, Array<ViewPlayerAttr>>(this, []);
+    public graphic_effects = new ChainProperty<this, Array<ViewGraphicEffectAttr>>(this, []);
     public camera = new ChainProperty<this, ViewCameraAttr>(this, {area: new Rect()});
+
+    public round = new ChainProperty<this, number>(this, 1);
+    public round_animation_progress = new ChainProperty<this, number>(this, 0);
+    public enemies_remaining = new ChainProperty<this, number>(this, 0);
 
     public timestamp = performance.now();
     public update_ts = 0;
@@ -38,25 +53,107 @@ export class MainView extends CanvasView<ViewCollection> {
         this.apply_camera();
 
         this.planets.get().forEach((planet, index) => {
-            this.context.beginPath();
-            this.context.arc(planet.position.x, planet.position.y, planet.radius, 0, 2 * Math.PI);
-            this.context.fill();
+            if (planet.image) {
+                this.context.drawImage(
+                    planet.image,
+                    planet.position.x - planet.radius,
+                    planet.position.y - planet.radius,
+                    planet.radius * 2,
+                    planet.radius * 2,
+                )
+            } else {
+                this.context.beginPath();
+                this.context.arc(planet.position.x, planet.position.y, planet.radius, 0, 2 * Math.PI);
+                this.context.fill();
+            }
         });
         this.context.fillStyle = this.fg_color.get().to_hex();
         this.players.get().forEach((player, index) => {
             const transform = this.context.getTransform();
             this.context.translate(player.position.x, player.position.y);
-            this.context.rotate(player.rotation);
-            this.context.fillRect(
-                player.collision_box.x,
-                player.collision_box.y,
-                player.collision_box.w,
-                player.collision_box.h
+
+
+            const start = Math.PI * 5 / 4;
+            const damage_progress = player.damage / 1000;
+            const radius = player.collision_box.w;
+            const end = start + Math.PI / 2 * damage_progress;
+
+            this.context.strokeStyle = "3px solid gray";
+            this.context.beginPath();
+            this.context.arc(
+                0, 0,
+                radius,
+                start, end
             );
+            this.context.stroke();
+            this.context.strokeStyle = "1px solid red";
+            this.context.beginPath();
+            this.context.arc(
+                0, 0,
+                radius,
+                start, end
+            );
+            this.context.stroke();
+
+
+            this.context.rotate(player.rotation);
+            if (player.image) {
+                this.context.drawImage(
+                    player.image,
+                    player.collision_box.x,
+                    player.collision_box.y,
+                    player.collision_box.w,
+                    player.collision_box.h
+                );
+            } else {
+                this.context.fillRect(
+                    player.collision_box.x,
+                    player.collision_box.y,
+                    player.collision_box.w,
+                    player.collision_box.h
+                );
+            }
+            this.context.setTransform(transform);
+        });
+
+        this.graphic_effects.get().forEach((effect, index) => {
+            const transform = this.context.getTransform();
+            //this.context.translate(effect.position.x, effect.position.y);
+            //this.context.rotate(player.rotation);
+            if (effect.image) {
+                this.context.save();
+                this.context.globalAlpha = 1 - effect.fading_progress;
+                this.context.drawImage(
+                    effect.image,
+                    effect.target.x,
+                    effect.target.y,
+                    effect.target.w,
+                    effect.target.h,
+                );
+                this.context.restore();
+            } else {
+
+            }
             this.context.setTransform(transform);
         });
         this.context.resetTransform();
 
+        this.context.font = "42px monospace";
+        this.context.textAlign = ('start');
+        this.context.textBaseline = ('top');
+        this.context.save();
+        const p = this.round_animation_progress.get();
+        const z = Math.max(1, (1 - p * p) * 18);
+        this.context.translate(775, 535);
+        this.context.scale(z, z);
+        this.context.textAlign = ('center');
+        this.context.fillStyle = "#22ee00";
+        this.context.fillText(this.round.get().toString(), -25, -35);
+        this.context.restore();
+
+        this.context.fillStyle = "#aaaaaa";
+        this.context.fillText("Round ", 550, 500);
+        this.context.fillText("Enemies " + this.enemies_remaining.get().toString(), 500, 550);
 
         const now = performance.now();
         // console.log();
