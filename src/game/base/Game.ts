@@ -6,18 +6,9 @@ import { MvcCanvasGame } from "@game.object/ts-game-toolbox/dist/src/abstract/mv
 
 export class Game extends MvcCanvasGame<ModelCollection, ViewCollection, ControllerCollection> {
 
+
     public attach_event_listeners() {
         super.attach_event_listeners();
-        this.canvas.addEventListener("keydown", (event) => {
-            if (this.active_controller?.key_down) {
-                this.active_controller.key_down(event);
-            }
-        });
-        this.canvas.addEventListener("keyup", (event) => {
-            if (this.active_controller?.key_up) {
-                this.active_controller.key_up(event);
-            }
-        });
     }
 
     public update(delta_seconds: number) {

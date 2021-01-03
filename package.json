@@ -9,18 +9,13 @@
     "tsc": "tsc --noEmit --watch",
     "test": "npx parcel ./test-src/index.html --out-dir ./test-dist/",
     "build": "npx parcel build ./src/index.html --public-url .",
-    "clean": "rmdir /q 'dist'",
+    "clean": "rmdir /q ./dist",
     "release": "npm run clean; npm run build"
   },
   "dependencies": {
-    "@game.object/ts-game-toolbox": "^2.3.8"
+    "@game.object/ts-game-toolbox": "^3.0.1"
   },
   "devDependencies": {
-    "@types/p5": "^0.9.1",
-    "@types/parcel-env": "^0.0.0",
-    "@types/react": "^16.9.46",
-    "@types/react-dom": "^16.9.8",
-    "@types/semantic-ui": "^2.2.7",
     "parcel": "^1.12.4",
     "typescript": "^4.0.3"
   }
