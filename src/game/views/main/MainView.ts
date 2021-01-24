@@ -1,6 +1,6 @@
 import { tools } from "@game.object/ts-game-toolbox";
-import { CanvasView } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/CanvasView";
-import { RgbColor } from "@game.object/ts-game-toolbox/dist/src/data/RgbColor";
+import { CanvasView } from "@game.object/ts-game-toolbox/src/abstract/mvc/CanvasView";
+import { RgbColor } from "@game.object/ts-game-toolbox/src/data/RgbColor";
 import { ChainProperty } from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
 import { ViewCollection } from "../ViewCollection";
 import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
@@ -13,24 +13,13 @@ interface ViewStarAttr {
 }
 
 export class MainView extends CanvasView<ViewCollection> {
-    /// Color of the "sky"
+    /// Base Colors
     public bg_color = new ChainProperty<this, RgbColor>(this, tools.commons.Colors.BLACK);
-    /// All stars on the screen
-    public stars = new ChainProperty<this, Array<ViewStarAttr>>(this, []);
+    public fg_color = new ChainProperty<this, RgbColor>(this, tools.commons.Colors.WHITE);
 
     public draw(): void {
         this.reset_canvas_state();
-        this.stars.get().forEach((star) => {
-            /**
-             * Divide the position by `z` to create a sense of depth,
-             * when the stars approach the viewer. 
-             */
-            const real_position = new Vector2(star.position).mul(33 / (star.z)).add({ x: 400, y: 300 });
-            const size = star.size * 100 / star.z;
-            this.context.strokeStyle = star.color.to_hex();
-            this.context.fillStyle = star.color.to_hex();
-            this.context.fillRect(real_position.x - size / 2, real_position.y - size / 2, size, size);
-        });
+        this.context.fillText("Example", 400, 300);
     }
 
     /**
@@ -40,6 +29,10 @@ export class MainView extends CanvasView<ViewCollection> {
         super.reset_canvas_state();
         this.context.fillStyle = this.bg_color.get().to_hex();
         this.context.fillRect(0, 0, 800, 600);
+        this.context.fillStyle = this.fg_color.get().to_hex();
+        this.context.font = "16px monospace";
+        this.context.textAlign = "center";
+        this.context.textBaseline = "middle";
         this.context.imageSmoothingEnabled = false;
     }
 }
