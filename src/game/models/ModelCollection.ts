@@ -1,14 +1,18 @@
-import { ModelCollectionBase } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Collections";
+import { ModelCollectionBase } from "@game.object/ts-game-toolbox/src/abstract/mvc/Collections";
+import { ModelTable } from "@game.object/ts-game-toolbox/src/abstract/mvc/ModelTable";
 import { GameModel } from "./GameModel";
+import { MemoryCardModel } from "./MemoryCardModel";
 
 
 export interface ModelCollection extends ModelCollectionBase {
     game: GameModel,
+    cards: ModelTable<ModelCollection, MemoryCardModel>,
 }
 
 export function create_models(): ModelCollection {
     const collection: ModelCollection = {} as ModelCollection;
     return Object.assign(collection, {
         game: new GameModel(collection),
+        cards: new ModelTable(collection, MemoryCardModel),
     });
 }
