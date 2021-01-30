@@ -8,5 +8,6 @@ import { ModelCollection } from "./ModelCollection";
 export class MemoryCardModel extends Model<ModelCollection> {
     public color: RgbColor = tools.commons.Colors.WHITE;
     public is_revealed: boolean = false;
+    public is_drawn: boolean = false;
     public collider: Rect = new Rect(0, 0, 0, 0);
 }
