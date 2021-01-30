@@ -1,5 +1,5 @@
 {
-  "name": "ts-p5-react-game-template",
+  "name": "memory-game",
   "version": "1.0.0",
   "main": "./dist/index.html",
   "author": "tobidot <Object.name@live.de>",
@@ -10,7 +10,8 @@
     "test": "npx parcel ./test-src/index.html --out-dir ./test-dist/",
     "build": "npx parcel build ./src/index.html --public-url .",
     "clean": "rmdir /q ./dist",
-    "release": "npm run clean; npm run build"
+    "zip": "zip ./memory-game.zip ./dist",
+    "release": "npm run clean; npm run build; npm run zip"
   },
   "dependencies": {
     "@game.object/ts-game-toolbox": "^3.1.3"
