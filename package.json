@@ -9,8 +9,8 @@
     "tsc": "tsc --noEmit --watch",
     "test": "npx parcel ./test-src/index.html --out-dir ./test-dist/",
     "build": "npx parcel build ./src/index.html --public-url .",
-    "clean": "rmdir /q ./dist",
-    "zip": "zip ./memory-game.zip ./dist",
+    "clean": "rmdir dist -Recurse -Force",
+    "zip": "cd ./dist; zip ../releases/memory-game.zip *.*",
     "release": "npm run clean; npm run build; npm run zip"
   },
   "dependencies": {
