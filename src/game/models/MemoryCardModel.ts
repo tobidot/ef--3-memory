@@ -1,6 +1,6 @@
 import { tools } from "@game.object/ts-game-toolbox";
 import { Rect } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect";
-import { Vector2 } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
+import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
 import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/Model";
 import { RgbColor } from "@game.object/ts-game-toolbox/src/data/RgbColor";
 import { ModelCollection } from "./ModelCollection";
@@ -10,4 +10,14 @@ export class MemoryCardModel extends Model<ModelCollection> {
     public is_revealed: boolean = false;
     public is_drawn: boolean = false;
     public collider: Rect = new Rect(0, 0, 0, 0);
+
+    public is_hit(target: Vector2I): boolean {
+        if (this.is_drawn) return false;
+        const screen_collider = this.models.camera.transformRect(new Rect().set(this.collider));
+        return (screen_collider.contains(target));
+    }
+
+    public is_pair(other: MemoryCardModel): boolean {
+        return other.color === this.color && this !== other;
+    }
 }
