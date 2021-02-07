@@ -17,10 +17,6 @@ export class UserInterfaceModelAdapter {
             && this.target.is_clickable;
     }
 
-    // public click(event: MouseEvent): UserInterfaceEvent {
-
-    // }
-
     /**
      * Static Functions
      */

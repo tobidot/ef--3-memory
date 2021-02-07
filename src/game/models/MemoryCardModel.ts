@@ -13,19 +13,8 @@ export class MemoryCardModel extends Model<ModelCollection> implements UserInter
 
     public collider: Rect = new Rect(0, 0, 0, 0);
 
-
-    public is_hit(target: Vector2I): boolean {
-        if (this.is_drawn) return false;
-        const screen_collider = this.models.camera.transformRect(new Rect().set(this.collider));
-        return (screen_collider.contains(target));
-    }
-
     public is_pair(other: MemoryCardModel): boolean {
         return other.color === this.color && this !== other;
-    }
-
-    public click() {
-        return
     }
 
     public get is_clickable(): boolean {
