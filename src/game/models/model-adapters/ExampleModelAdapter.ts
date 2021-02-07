@@ -17,6 +17,7 @@ export class ExampleModelAdapter {
         if (!ExampleModelAdapter.instance) {
             ExampleModelAdapter.instance = new ExampleModelAdapter(target);
         }
-        return ExampleModelAdapter.instance.target = ExampleModelAdapter.instance;
+        ExampleModelAdapter.instance.target = target;
+        return ExampleModelAdapter.instance;
     }
 }
