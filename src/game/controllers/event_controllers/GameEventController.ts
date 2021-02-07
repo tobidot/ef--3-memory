@@ -13,6 +13,7 @@ import { is_user_interface_event, UserInterfaceEvent } from "../../events/UserIn
 import { UserInterfaceModelAdapter } from "../../models/model-adapters/UserInterfaceModelAdapter";
 import { is_memory_card_revealed_event, MemoryCardRevealedEvent } from "../../events/MemoryCardRevealedEvent";
 import { assert_never } from "../../../tools/helper";
+import { Vector2 } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
 
 export class GameEventController extends BaseController implements EventControllerInterface {
 
@@ -21,14 +22,16 @@ export class GameEventController extends BaseController implements EventControll
     }
 
     public mouse_pressed(event: MouseEvent, x: number, y: number): ControllerRouteResponse {
+        const camera = this.models.camera;
+        const target = camera.reverse_transform(new Vector2({ x, y }));
         const memory_card_selected: MemoryCardModel | undefined = this.models.cards.all().filter(
-            (card: MemoryCardModel) => UserInterfaceModelAdapter.for(card).is_clicked({ x, y })
+            (card: MemoryCardModel) => UserInterfaceModelAdapter.for(card).is_clicked(target)
         ).shift();
         if (!memory_card_selected) return null;
         const interface_event: UserInterfaceEvent = {
             event_name: "user-interface-event",
             target: memory_card_selected,
-            in_game_mouse: { x, y },
+            in_game_mouse: target,
             original: event,
         };
         return interface_event;
