@@ -1,4 +1,4 @@
-import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
+import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/models/Model";
 import { ModelCollection } from "./ModelCollection";
 import { PlayerModel } from "./PlayerModel";
 

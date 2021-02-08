@@ -1,6 +1,6 @@
-import { ControllerEvent } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerEvent";
-import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
-import { Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
+import { ControllerEvent } from "@game.object/ts-game-toolbox/src/abstract/mvc/events/ControllerEvent";
+import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/models/Model";
+import { Vector2I } from "@game.object/ts-game-toolbox/src/geometries/Vector2";
 import { UserInterfaceAdaptable } from "../models/model-adapters/UserInterfaceModelAdapter";
 import { ModelCollection } from "../models/ModelCollection";
 

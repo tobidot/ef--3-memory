@@ -1,15 +1,15 @@
 import { BaseController } from "../BaseController";
-import { EventControllerInterface } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Controller";
-import { ControllerRouteResponse, ControllerRouteResponseType } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
+import { EventControllerInterface } from "@game.object/ts-game-toolbox/src/abstract/mvc/controllers/Controller";
+import { ControllerRouteResponse, ControllerRouteResponseType } from "@game.object/ts-game-toolbox/src/abstract/mvc/controllers/ControllerRouteResponse";
 import { MemoryCardModel } from "../../models/MemoryCardModel";
-import { PromisableControllerRouteResponseType, PromiseController } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/controllers/PromiseController";
+import { PromisableControllerRouteResponseType, PromiseController } from "@game.object/ts-game-toolbox/src/abstract/mvc/controllers/PromiseController";
 import { PlayerModel, PlayerTurnState } from "../../models/PlayerModel";
 import { is_user_interface_event, UserInterfaceEvent } from "../../events/UserInterfaceEvent";
 import { UserInterfaceModelAdapter } from "../../models/model-adapters/UserInterfaceModelAdapter";
 import { is_memory_card_revealed_event, MemoryCardRevealedEvent } from "../../events/MemoryCardRevealedEvent";
 import { assert_never } from "../../../tools/helper";
-import { Vector2 } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
-import { ControllerEvent } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerEvent";
+import { Vector2 } from "@game.object/ts-game-toolbox/src/geometries/Vector2";
+import { ControllerEvent } from "@game.object/ts-game-toolbox/src/abstract/mvc/events/ControllerEvent";
 
 export class GameEventController extends BaseController implements EventControllerInterface {
 

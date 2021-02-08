@@ -1,5 +1,5 @@
-import { Rect } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect";
-import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
+import { Rect } from "@game.object/ts-game-toolbox/src/geometries/Rect";
+import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/src/geometries/Vector2";
 import { Game } from "../../base/Game";
 import { UserInterfaceEvent } from "../../events/UserInterfaceEvent";
 

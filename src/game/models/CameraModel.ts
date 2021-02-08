@@ -1,6 +1,6 @@
-import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
-import { Rect } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect";
-import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
+import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/models/Model";
+import { Rect } from "@game.object/ts-game-toolbox/src/geometries/Rect";
+import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/src/geometries/Vector2";
 import { assert_never } from "../../tools/helper";
 import { ModelCollection } from "./ModelCollection";
 

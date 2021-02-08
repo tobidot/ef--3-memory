@@ -1,5 +1,5 @@
-import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
-import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
+import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/src/abstract/mvc/controllers/ControllerRouteResponse";
+import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/models/Model";
 import { BranchingResponse } from "../../tools/BranchingResponse";
 import { MemoryCardModel } from "./MemoryCardModel";
 import { ModelCollection } from "./ModelCollection";

@@ -1,4 +1,4 @@
-import { TestClass } from "@game.object/ts-game-toolbox/dist/src/testing/TestClass";
+import { TestClass } from "@game.object/ts-game-toolbox/src/testing/TestClass";
 
 export namespace test {
 

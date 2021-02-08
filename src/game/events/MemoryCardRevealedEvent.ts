@@ -1,5 +1,4 @@
-import { ControllerEvent } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerEvent";
-import { Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
+import { ControllerEvent } from "@game.object/ts-game-toolbox/src/abstract/mvc/events/ControllerEvent";
 import { MemoryCardModel } from "../models/MemoryCardModel";
 
 export interface MemoryCardRevealedEvent extends ControllerEvent {

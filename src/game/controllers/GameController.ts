@@ -1,7 +1,7 @@
 import {
     ControllerRouteResponse,
     ControllerRouteResponseType
-} from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
+} from "@game.object/ts-game-toolbox/src/abstract/mvc/controllers/ControllerRouteResponse";
 import { RgbColor } from "@game.object/ts-game-toolbox/src/data/RgbColor";
 import { PlayerModel } from "../models/PlayerModel";
 import { BaseController } from "./BaseController";

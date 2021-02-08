@@ -1,4 +1,4 @@
-import { ModelTable } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ModelTable";
+import { ModelTable } from "@game.object/ts-game-toolbox/src/abstract/mvc/models/ModelTable";
 import { ModelCollectionBase } from "@game.object/ts-game-toolbox/src/abstract/mvc/Collections";
 import { CameraModel } from "./CameraModel";
 import { GameModel } from "./GameModel";
