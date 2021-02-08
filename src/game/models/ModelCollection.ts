@@ -1,5 +1,5 @@
+import { ModelTable } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ModelTable";
 import { ModelCollectionBase } from "@game.object/ts-game-toolbox/src/abstract/mvc/Collections";
-import { ModelTable } from "@game.object/ts-game-toolbox/src/abstract/mvc/ModelTable";
 import { CameraModel } from "./CameraModel";
 import { GameModel } from "./GameModel";
 import { MemoryCardModel } from "./MemoryCardModel";

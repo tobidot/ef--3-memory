@@ -1,5 +1,4 @@
 import { tools } from "@game.object/ts-game-toolbox";
-import { CanvasView } from "@game.object/ts-game-toolbox/src/abstract/mvc/CanvasView";
 import { RgbColor } from "@game.object/ts-game-toolbox/src/data/RgbColor";
 import { ChainProperty } from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
 import { ViewCollection } from "../ViewCollection";
@@ -7,6 +6,7 @@ import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometr
 import { RectI } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect";
 import { CameraModel } from "../../models/CameraModel";
 import { PlayerModel } from "../../models/PlayerModel";
+import { CanvasView } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/CanvasView";
 
 interface ViewMemoryCardAttr {
     collider: RectI;

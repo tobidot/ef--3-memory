@@ -1,7 +1,6 @@
 import { tools } from "@game.object/ts-game-toolbox";
+import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
 import { Rect } from "@game.object/ts-game-toolbox/dist/src/geometries/Rect";
-import { Vector2, Vector2I } from "@game.object/ts-game-toolbox/dist/src/geometries/Vector2";
-import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/Model";
 import { RgbColor } from "@game.object/ts-game-toolbox/src/data/RgbColor";
 import { UserInterfaceAdaptable } from "./model-adapters/UserInterfaceModelAdapter";
 import { ModelCollection } from "./ModelCollection";

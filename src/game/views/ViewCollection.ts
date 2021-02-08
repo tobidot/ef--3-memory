@@ -1,4 +1,4 @@
-import { ViewCollectionBase } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Collections";
+import { ViewCollectionBase } from "@game.object/ts-game-toolbox/src/abstract/mvc/Collections";
 import { MainView } from "./main/MainView";
 
 export interface ViewCollection extends ViewCollectionBase {

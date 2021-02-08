@@ -1,8 +1,8 @@
 import { ControllerCollection, create_controllers } from "../controllers/ControllerCollection";
 import { create_views, ViewCollection } from "../views/ViewCollection";
 import { create_models, ModelCollection } from "../models/ModelCollection";
-import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/src/abstract/mvc/ControllerRouteResponse";
 import { MvcCanvasGame } from "@game.object/ts-game-toolbox/src/abstract/mvc/MvcCanvasGame";
+import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/src/abstract/mvc/controllers/ControllerRouteResponse";
 
 export class Game extends MvcCanvasGame<ModelCollection, ViewCollection, ControllerCollection> {
 

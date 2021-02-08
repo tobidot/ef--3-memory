@@ -1,7 +1,7 @@
 import { ControllerRouteResponseType } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
 import { PromisableController } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/controllers/PromiseController";
 import { ChainProperty } from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
-import { Controller, EventControllerInterface } from "@game.object/ts-game-toolbox/src/abstract/mvc/Controller";
+import { EventControllerInterface } from "@game.object/ts-game-toolbox/src/abstract/mvc/controllers/Controller";
 import { BaseController } from "../BaseController";
 import { ControllerCollection } from "../ControllerCollection";
 

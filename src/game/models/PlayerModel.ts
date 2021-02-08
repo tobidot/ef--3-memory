@@ -1,7 +1,6 @@
-import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/src/abstract/mvc/ControllerRouteResponse";
-import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/Model";
+import { ControllerRouteResponse } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/ControllerRouteResponse";
+import { Model } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/Model";
 import { BranchingResponse } from "../../tools/BranchingResponse";
-import { assert_never } from "../../tools/helper";
 import { MemoryCardModel } from "./MemoryCardModel";
 import { ModelCollection } from "./ModelCollection";
 

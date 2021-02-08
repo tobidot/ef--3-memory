@@ -1,4 +1,4 @@
-import { TestDashboard } from "@game.object/ts-game-toolbox/dist/src/testing/TestDashboard";
+import { TestDashboard } from "@game.object/ts-game-toolbox/src/testing/TestDashboard";
 import { test } from "./features/ExampleTest";
 
 const element = document.getElementById('test-dashboard');
