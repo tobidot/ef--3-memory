@@ -2,8 +2,8 @@ import { ControllerRouteResponseType } from "@game.object/ts-game-toolbox/dist/s
 import { PromisableController } from "@game.object/ts-game-toolbox/dist/src/abstract/mvc/controllers/PromiseController";
 import { ChainProperty } from "@game.object/ts-game-toolbox/dist/src/signals/ChainProperty";
 import { Controller, EventControllerInterface } from "@game.object/ts-game-toolbox/src/abstract/mvc/Controller";
-import { BaseController } from "./BaseController";
-import { ControllerCollection } from "./ControllerCollection";
+import { BaseController } from "../BaseController";
+import { ControllerCollection } from "../ControllerCollection";
 
 export class DelayController extends BaseController implements PromisableController, EventControllerInterface {
     public next: (() => ControllerRouteResponseType) | null = null;
