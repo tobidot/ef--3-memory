@@ -1,4 +1,4 @@
-import { tools } from "@game.object/ts-game-toolbox";
+import { tools } from "@game.object/ts-game-toolbox/index";
 import { Model } from "@game.object/ts-game-toolbox/src/abstract/mvc/models/Model";
 import { Rect } from "@game.object/ts-game-toolbox/src/geometries/Rect";
 import { RgbColor } from "@game.object/ts-game-toolbox/src/data/RgbColor";

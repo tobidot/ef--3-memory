@@ -1,4 +1,4 @@
-import { tools } from "@game.object/ts-game-toolbox";
+import { tools } from "@game.object/ts-game-toolbox/index";
 import { RgbColor } from "@game.object/ts-game-toolbox/src/data/RgbColor";
 import { ChainProperty } from "@game.object/ts-game-toolbox/src/signals/ChainProperty";
 import { ViewCollection } from "../ViewCollection";

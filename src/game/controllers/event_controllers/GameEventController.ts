@@ -33,7 +33,7 @@ export class GameEventController extends BaseController implements EventControll
         return interface_event;
     }
 
-    public dispatch_event(event: ControllerEvent): ControllerRouteResponse {
+    public custom_event(event: ControllerEvent): ControllerRouteResponse {
         if (is_user_interface_event(event)) {
             if (event.target instanceof MemoryCardModel) {
                 return this.memory_card_clicked(event.target);

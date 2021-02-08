@@ -877,10 +877,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@game.object/ts-game-toolbox@4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@game.object/ts-game-toolbox/-/ts-game-toolbox-4.0.2.tgz#5816d08e7085a603e59032831ce18d2c323349ea"
-  integrity sha512-jMH4nJQ68uWe9Sa4ndECRrnkENAFDHzLk7sP9RDpy9xOnZdlwjOxgPltyimaWNvccs/dRuak0AP2dLZRHIPICg==
+"@game.object/ts-game-toolbox@4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@game.object/ts-game-toolbox/-/ts-game-toolbox-4.0.4.tgz#ce842c97e9f54c1d8066e378e7088e800d5658f1"
+  integrity sha512-q2MoHmaO8OtOaDeQ0fT7YJ2H7xtLTek04ZsnqT9ODDLf4GgUIaYsfHSP6QQRvGMH+uIiY6PAkwkTZOoV+RVUvQ==
 
 "@iarna/toml@^2.2.0":
   version "2.2.5"
