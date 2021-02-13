@@ -6,7 +6,6 @@ import { UserInterfaceEvent } from "../../events/UserInterfaceEvent";
 export interface UserInterfaceAdaptable {
     collider: Rect;
     is_clickable: boolean;
-    // click(in_game_position: Vector2I): UserInterfaceEvent;
 }
 
 export class UserInterfaceModelAdapter {

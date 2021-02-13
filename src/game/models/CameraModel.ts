@@ -5,8 +5,16 @@ import { assert_never } from "../../tools/helper";
 import { ModelCollection } from "./ModelCollection";
 
 export class CameraModel extends Model<ModelCollection>{
+    // Center of the camera
     public center = new Vector2(0, 0);
 
+    /**
+     * 
+     * @param shape 
+     *  The object to map to the "camera"-coordinates
+     * @return 
+     *  The transformed object
+     */
     public reverse_transform(shape: Rect): Rect;
     public reverse_transform(shape: Vector2): Vector2;
     public reverse_transform(shape: Vector2 | Rect): Vector2 | Rect {
@@ -15,6 +23,13 @@ export class CameraModel extends Model<ModelCollection>{
         return assert_never(shape);
     }
 
+    /**
+     * 
+     * @param shape 
+     *  The object to map to the "world"-coordinates
+     * @return 
+     *  The transformed object
+     */
     public transform(shape: Rect): Rect;
     public transform(shape: Vector2): Vector2;
     public transform(shape: Vector2 | Rect): Vector2 | Rect {
